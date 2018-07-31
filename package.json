@@ -1,0 +1,20 @@
+{
+  "name": "electron-blog-authoring",
+  "version": "1.0.0",
+  "description": "Electron authoring tool for my blog",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel -d lib/ components/",
+    "start": "npm run compile && electron ."
+  },
+  "author": "dkvz@dkvz.eu",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-preact": "^1.1.0",
+    "electron": "^2.0.5",
+    "electron-packager": "^12.1.0",
+    "preact": "^8.2.9"
+  }
+}
