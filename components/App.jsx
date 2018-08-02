@@ -1,5 +1,7 @@
 const { h, render, Component } = require("preact");
 const Toolbar = require('../lib/Toolbar');
+const Footer = require('../lib/Footer');
+const editorEvents = require('../electron/editor-events');
 
 class App extends Component {
 
@@ -8,6 +10,9 @@ class App extends Component {
     this.openClicked = this.openClicked.bind(this);
     this.saveClicked = this.saveClicked.bind(this);
     this.notImplemented = this.notImplemented.bind(this);
+    this.state = {
+      statusText: 'App. Started'
+    };
   }
 
   openClicked() {
@@ -19,7 +24,7 @@ class App extends Component {
   }
 
   notImplemented() {
-    alert('Not implemented.');
+    editorEvents.msgBox('Not implemented');
   }
 
   render() {
@@ -35,9 +40,7 @@ class App extends Component {
             <div class="pane">Main center zone</div>
           </div>
         </div>
-        <footer class="toolbar toolbar-footer">
-          <h1 class="title">Footer</h1>
-        </footer>
+        <Footer statusText={this.state.statusText} />
       </div>
     );
   }
