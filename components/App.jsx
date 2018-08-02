@@ -1,6 +1,8 @@
 const { h, render, Component } = require("preact");
 const Toolbar = require('../lib/Toolbar');
 const Footer = require('../lib/Footer');
+const Accordion = require('../lib/Accordion');
+const Editor = require('../lib/Editor');
 const editorEvents = require('../electron/editor-events');
 
 class App extends Component {
@@ -37,7 +39,18 @@ class App extends Component {
         />
         <div class="window-content">
           <div class="pane-group">
-            <div class="pane">Main center zone</div>
+            <div class="pane">
+              <Accordion label="Article Meta">
+                <Editor />
+              </Accordion>
+              <Accordion label="Summary">
+                <Editor />
+              </Accordion>
+              <div class="form-group">
+                <div class="form-headline">Article content</div>
+                <Editor className="form-control" />
+              </div>
+            </div>
           </div>
         </div>
         <Footer statusText={this.state.statusText} />

@@ -8,6 +8,9 @@ I then copied the whole thing into my "assets" directory as is.
 
 Quick link to available components: http://photonkit.com/components/
 
+## Styling
+There are component-specific styles in base.css.
+
 ### Notes
 * Buttons in the toolbar can receive the "active" classe.
 
