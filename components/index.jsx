@@ -5,6 +5,6 @@ const App = require('../lib/App');
 // index.html. It's NOT a component.
 
 render(
-  <App />,
+  <App id="app" />,
   document.body
 );

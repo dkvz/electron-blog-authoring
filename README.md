@@ -16,3 +16,4 @@ There are component-specific styles in base.css.
 
 ## TODO
 - [ ] Main.js doesn't have semicolons (copied it from elsewhere) - Can prettier do something for me there?
+- [ ] I'm implementing the W3C modal lul: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal2
