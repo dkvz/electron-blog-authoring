@@ -14,23 +14,23 @@ class Modal extends Component {
       <div className="Modal" 
         style={{display: this.props.show ? 'block' : 'none'}}>
         <div className="Modal-content">
-          <div className="Modal-header">
+          <header className="toolbar toolbar-header">
             <span className="Modal-close" 
               onClick={(e) => this.props.closed(e)}>
               &times;
             </span>
-            <h2>{this.state.title}</h2>
-          </div>
+            <h1 className="title">{this.state.title}</h1>
+          </header>
           <div className="Modal-body">
             {this.props.children}
           </div>
-          <div className="Modal-footer">
+          <footer className="toolbar toolbar-footer Modal-footer">
             <button className="btn btn-primary" 
               onClick={(e) => this.props.closed(e)}
               style={{float: 'right'}}>
               Close
             </button>
-          </div>
+          </footer>
         </div>
       </div>
     );

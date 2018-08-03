@@ -86,31 +86,24 @@ html, body {
 }
 
 .Modal-close {
-  color: white;
+  color: #000;
   float: right;
-  font-size: 28px;
+  font-size: 1.2em;
   font-weight: bold;
+  padding-right: 10px;
 }
 
 .Modal-close:hover,
 .Modal-close:focus {
-  color: #000;
+  color: #fefefe;
   text-decoration: none;
   cursor: pointer;
-}
-
-.Modal-header {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
 }
 
 .Modal-body {padding: 2px 16px;}
 
 .Modal-footer {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
+  padding: 4px 4px;
 }
 /*
 * End Modal component styles
