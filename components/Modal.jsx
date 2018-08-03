@@ -3,27 +3,39 @@ const { h, Component } = require("preact");
 class Modal extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      title: 'Modal title',
+      text: 'Dialog text'
+    };
   }
 
   render() {
     return (
-      <div className="Modal">
+      <div className="Modal" 
+        style={{display: this.props.show ? 'block' : 'none'}}>
         <div className="Modal-content">
           <div className="Modal-header">
-            <span className="Modal-close">&times;</span>
-            <h2>Modal Header</h2>
+            <span className="Modal-close" 
+              onClick={(e) => this.props.closed(e)}>
+              &times;
+            </span>
+            <h2>{this.state.title}</h2>
           </div>
           <div className="Modal-body">
-            <p>Some text in the Modal Body</p>
-            <p>Some other text...</p>
+            {this.props.children}
           </div>
           <div className="Modal-footer">
-            <h3>Modal Footer</h3>
+            <button className="btn btn-primary" 
+              onClick={(e) => this.props.closed(e)}
+              style={{float: 'right'}}>
+              Close
+            </button>
           </div>
         </div>
       </div>
     );
   }
+
 }
 
 module.exports = Modal;

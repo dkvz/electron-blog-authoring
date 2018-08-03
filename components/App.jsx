@@ -3,6 +3,7 @@ const Toolbar = require('../lib/Toolbar');
 const Footer = require('../lib/Footer');
 const Accordion = require('../lib/Accordion');
 const Editor = require('../lib/Editor');
+const Modal = require('../lib/Modal');
 const editorEvents = require('../electron/editor-events');
 
 class App extends Component {
@@ -12,8 +13,10 @@ class App extends Component {
     this.openClicked = this.openClicked.bind(this);
     this.saveClicked = this.saveClicked.bind(this);
     this.notImplemented = this.notImplemented.bind(this);
+    this.closeSaveModal = this.closeSaveModal.bind(this);
     this.state = {
-      statusText: 'App. Started'
+      statusText: 'App. Started',
+      showSaveModal: false
     };
   }
 
@@ -22,19 +25,27 @@ class App extends Component {
   }
 
   saveClicked() {
-
+    this.setState({showSaveModal: true});
   }
 
   notImplemented() {
     editorEvents.msgBox('Not implemented');
   }
 
+  closeSaveModal() {
+    this.setState({showSaveModal: false});
+  }
+
   render() {
     return (
       <div class="window">
+        <Modal show={this.state.showSaveModal}
+          closed={this.closeSaveModal}>
+          <p>Is this working?</p>
+        </Modal>
         <Toolbar 
           openClicked={this.notImplemented} 
-          saveClicked={this.notImplemented} 
+          saveClicked={this.saveClicked} 
           notImplemented={this.notImplemented}
         />
         <div class="window-content">
