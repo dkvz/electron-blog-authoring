@@ -1,9 +1,6 @@
+const path = require('path');
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, ipcMain} = require('electron')
-
-// My attempt at creating a global state object:
-const state = {test: "test value from index.js", counter: 0};
-global.state = state;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -14,7 +11,11 @@ function createWindow () {
   else console.log('CAREFUL: NOT DEV MODE')
   
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    icon: path.join(__dirname, '../assets/images/icon-64x64.png')
+  })
 
   // and load the index.html of the app.
   mainWindow.loadFile('views/index.html')
