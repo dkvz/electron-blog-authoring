@@ -39,7 +39,10 @@ class App extends Component {
   render() {
     return (
       <div class="window">
-        <Modal show={this.state.showSaveModal}
+        <Modal 
+          id="saveModal" 
+          maxWidth="600px"
+          show={this.state.showSaveModal}
           closed={this.closeSaveModal}>
           <p>Is this working?</p>
         </Modal>

@@ -13,7 +13,8 @@ class Modal extends Component {
     return (
       <div className="Modal" 
         style={{display: this.props.show ? 'block' : 'none'}}>
-        <div className="Modal-content">
+        <div className="Modal-content"
+          style={{'max-width': this.props.maxWidth ? this.props.maxWidth : null}}>
           <header className="toolbar toolbar-header">
             <span className="Modal-close" 
               onClick={(e) => this.props.closed(e)}>
