@@ -8,6 +8,7 @@ const { h, Component } = require("preact");
 class Accordion extends Component {
   constructor(props) {
     super(props);
+    this.paddingTB = 10;
     this.state = {
       show: props.show || false
     };
@@ -26,7 +27,9 @@ class Accordion extends Component {
         <div
           class="Accordion-panel"
           style={{
-            maxHeight: this.state.show ? this.panel.scrollHeight : null
+            maxHeight: this.state.show ? 
+              (this.panel.scrollHeight + 2 * this.paddingTB) + 'px' : null,
+            padding: this.state.show ? this.paddingTB + 'px 4px' : '0'
           }}
           ref={el => (this.panel = el)}
         >
