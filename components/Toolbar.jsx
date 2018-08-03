@@ -1,4 +1,4 @@
-const { h, render } = require("preact");
+const { h } = require("preact");
 const Toolbar = ( { openClicked, saveClicked, notImplemented } ) => {
   return (
     <header class="toolbar toolbar-header">

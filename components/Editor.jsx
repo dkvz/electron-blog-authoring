@@ -1,4 +1,4 @@
-const { h, render, Component } = require("preact");
+const { h, Component } = require("preact");
 
 class Editor extends Component {
   

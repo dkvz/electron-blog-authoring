@@ -1,4 +1,4 @@
-const { h, render, Component } = require("preact");
+const { h, Component } = require("preact");
 const Toolbar = require('../lib/Toolbar');
 const Footer = require('../lib/Footer');
 const Accordion = require('../lib/Accordion');

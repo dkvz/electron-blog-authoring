@@ -1,4 +1,4 @@
-const { h, render } = require("preact");
+const { h } = require("preact");
 const Footer = props => {
   return (
     <footer class="toolbar toolbar-footer">

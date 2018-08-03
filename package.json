@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "babel -d lib/ components/",
-    "start": "npm run compile && NODE_ENV=dev electron ."
+    "start": "npm run compile && NODE_ENV=dev electron .",
+    "start-win": "npm run compile&&set NODE_ENV=dev&&electron ."
   },
   "author": "dkvz@dkvz.eu",
   "license": "ISC",
