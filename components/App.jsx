@@ -1,10 +1,12 @@
 const { h, Component } = require("preact");
+
 const Toolbar = require('../lib/Toolbar');
 const Footer = require('../lib/Footer');
 const Accordion = require('../lib/Accordion');
 const Editor = require('../lib/Editor');
 const Modal = require('../lib/Modal');
 const ArticleMeta = require('../lib/ArticleMeta');
+
 const editorEvents = require('../electron/editor-events');
 
 class App extends Component {

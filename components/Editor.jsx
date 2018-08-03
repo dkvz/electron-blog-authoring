@@ -4,7 +4,6 @@ class Editor extends Component {
   
   constructor(props) {
     super(props);
-    console.log('In the constructor for an Editor component');
   }
 
   render() {
@@ -19,7 +18,11 @@ class Editor extends Component {
     if (this.props.height) style.height = this.props.height;
     if (this.props.flex) style.flex = this.props.flex;
     return (
-      <textarea className={this.props.className} style={style}>
+      <textarea 
+        className={this.props.className} 
+        style={style}
+        ref={(el) => this.textElement = el}
+        >
       </textarea>
     );
   }
