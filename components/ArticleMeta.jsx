@@ -15,21 +15,23 @@ class ArticleMeta extends Component {
     const labelStyle = {
       'align-self': 'center'
     };
+    const inputStyle = {};
+    if (this.props.fontSize) inputStyle.fontSize = this.props.fontSize;
     const spanerz = (num) => ({'grid-column': 'span ' + num});
     // An empty line feed indicates a new line in the grid.
     return (
       <div style={formGrid}>
         <label style={labelStyle} htmlFor="titleInput">Title:</label>
-        <input type="text" id="titleInput" className="form-control" />
+        <input type="text" id="titleInput" className="form-control" style={inputStyle} />
         <button style={spanerz(2)}>Tags...</button>
 
         <label style={labelStyle} htmlFor="thumbImput">Thumb image:</label>
-        <input id="thumbInput" type="text" className="form-control" />
+        <input id="thumbInput" type="text" className="form-control" style={inputStyle} />
         <label style={labelStyle} htmlFor="userInput">User ID:</label>
-        <input id="userInput" type="text" className="form-control" />
+        <input id="userInput" type="text" className="form-control" style={inputStyle} />
 
         <label style={labelStyle} htmlFor="articleUrlInput">Article URL:</label>
-        <input id="articleUrlInput" type="text" className="form-control" />
+        <input id="articleUrlInput" type="text" className="form-control" style={inputStyle} />
         <div class="checkbox" style={labelStyle}>
           <label htmlFor="shortCheckbox">
             <input id="shortCheckbox" type="checkbox" /> Short

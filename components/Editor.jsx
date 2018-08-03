@@ -15,6 +15,9 @@ class Editor extends Component {
       'margin-right': 'auto', 
       'display': 'block'
     };
+    if (this.props.fontSize) style.fontSize = this.props.fontSize;
+    if (this.props.height) style.height = this.props.height;
+    if (this.props.flex) style.flex = this.props.flex;
     return (
       <textarea className={this.props.className} style={style}>
       </textarea>

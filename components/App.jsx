@@ -17,12 +17,13 @@ class App extends Component {
     this.closeSaveModal = this.closeSaveModal.bind(this);
     this.state = {
       statusText: 'App. Started',
-      showSaveModal: false
+      showSaveModal: false,
+      editorFontSize: '1.2em'
     };
   }
 
   openClicked() {
-
+    
   }
 
   saveClicked() {
@@ -48,22 +49,28 @@ class App extends Component {
           <p>Is this working?</p>
         </Modal>
         <Toolbar 
-          openClicked={this.notImplemented} 
+          openClicked={this.openClicked} 
           saveClicked={this.saveClicked} 
           notImplemented={this.notImplemented}
         />
         <div class="window-content">
           <div class="pane-group">
-            <div class="pane">
+            <div class="pane app-layout">
               <Accordion label="Article Meta">
                 <ArticleMeta />
               </Accordion>
               <Accordion label="Summary">
-                <Editor />
+                <Editor 
+                  className="form-control" 
+                  fontSize={this.state.editorFontSize} 
+                  height="230px" />
               </Accordion>
-              <div class="form-group">
+              <div class="form-group full-section">
                 <div class="form-headline">Article content</div>
-                <Editor className="form-control" />
+                <Editor 
+                  className="form-control" 
+                  flex="1" 
+                  fontSize={this.state.editorFontSize} />
               </div>
             </div>
           </div>
