@@ -4,6 +4,7 @@ const Footer = require('../lib/Footer');
 const Accordion = require('../lib/Accordion');
 const Editor = require('../lib/Editor');
 const Modal = require('../lib/Modal');
+const ArticleMeta = require('../lib/ArticleMeta');
 const editorEvents = require('../electron/editor-events');
 
 class App extends Component {
@@ -55,7 +56,7 @@ class App extends Component {
           <div class="pane-group">
             <div class="pane">
               <Accordion label="Article Meta">
-                <Editor />
+                <ArticleMeta />
               </Accordion>
               <Accordion label="Summary">
                 <Editor />
