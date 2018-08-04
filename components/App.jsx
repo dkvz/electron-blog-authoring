@@ -18,10 +18,19 @@ class App extends Component {
     this.notImplemented = this.notImplemented.bind(this);
     this.closeSaveModal = this.closeSaveModal.bind(this);
     this.setEditorRef = this.setEditorRef.bind(this);
+    this.metaChanged = this.metaChanged.bind(this);
     this.state = {
       statusText: 'App. Started',
       showSaveModal: false,
-      editorFontSize: '1.2em'
+      editorFontSize: '1.2em',
+      articleMeta: {
+        title: '',
+        articleUrl: '',
+        thumbImage: '',
+        userId: 1,
+        short: false,
+        published: false
+      }
     };
     // I'm going to store the editor (textarea, most likely)
     // elements in this object:
@@ -34,6 +43,19 @@ class App extends Component {
     return (el) => {
       this.editors[name] = el;
     };
+  }
+
+  metaChanged(e) {
+    const articleMeta = this.state.articleMeta;
+    // Handle the checkboxes values.
+    // Value has a weird string "on" or "off" for them.
+    // Also the checked prop is not undefined for the
+    // non checkbox inputs. We have to check a string.
+    articleMeta[e.target.name] = 
+      (e.target.type.indexOf('checkbox') >= 0) ? 
+        e.target.checked : e.target.value;
+    this.setState({articleMeta});
+    console.log(this.state);
   }
 
   openClicked() {
@@ -71,7 +93,9 @@ class App extends Component {
           <div class="pane-group">
             <div class="pane app-layout">
               <Accordion label="Article Meta" show="true">
-                <ArticleMeta />
+                <ArticleMeta
+                  articleMeta={this.state.articleMeta} 
+                  metaChanged={this.metaChanged} />
               </Accordion>
               <Accordion label="Summary">
                 <Editor 
