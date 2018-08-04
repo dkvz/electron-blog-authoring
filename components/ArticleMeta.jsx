@@ -3,6 +3,14 @@ const { h, Component } = require("preact");
 class ArticleMeta extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      short: false
+    };
+    this.shortChanged = this.shortChanged.bind(this);
+  }
+
+  shortChanged(e) {
+    this.setState({short: e.target.value});
   }
 
   render() {
@@ -15,6 +23,10 @@ class ArticleMeta extends Component {
     const labelStyle = {
       'align-self': 'center'
     };
+    // This is so ugly.
+    // I love it.
+    const vertAlign = Object.assign({display: 'table'}, labelStyle);
+    const tableCell = {display: 'table-cell', 'vertical-align': 'middle'};
     const inputStyle = {};
     if (this.props.fontSize) inputStyle.fontSize = this.props.fontSize;
     const spanerz = (num) => ({'grid-column': 'span ' + num});
@@ -31,14 +43,17 @@ class ArticleMeta extends Component {
         <input id="userInput" type="text" className="form-control" style={inputStyle} />
 
         <label style={labelStyle} htmlFor="articleUrlInput">Article URL:</label>
-        <input id="articleUrlInput" type="text" className="form-control" style={inputStyle} />
-        <div class="checkbox" style={labelStyle}>
-          <label htmlFor="shortCheckbox">
-            <input id="shortCheckbox" type="checkbox" /> Short
+        <input 
+          id="articleUrlInput" type="text" 
+          className="form-control" style={inputStyle} 
+          disabled={this.state.short} />
+        <div style={vertAlign}>
+          <label htmlFor="shortCheckbox" style={tableCell}>
+            <input id="shortCheckbox" type="checkbox" onChange={this.shortChanged} /> Short
           </label>
         </div>
-        <div class="checkbox" style={labelStyle}>
-          <label htmlFor="publishedCheckbox">
+        <div style={vertAlign}>
+          <label htmlFor="publishedCheckbox" style={tableCell}>
             <input id="publishedCheckbox" type="checkbox" /> Published
           </label>
         </div>

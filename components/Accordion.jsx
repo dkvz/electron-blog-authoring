@@ -14,6 +14,12 @@ class Accordion extends Component {
     };
   }
 
+  componentDidMount() {
+    // Gratuitous reset of 'show' to make sure
+    // the max-height is right:
+    this.setState({show: this.state.show});
+  }
+
   render() {
     const classN = 'Accordion' + (this.state.show ? ' Accordion-active' : '');
     return (
@@ -27,7 +33,7 @@ class Accordion extends Component {
         <div
           class="Accordion-panel"
           style={{
-            maxHeight: this.state.show ? 
+            maxHeight: (this.state.show && this.panel) ? 
               (this.panel.scrollHeight + 2 * this.paddingTB) + 'px' : null,
             padding: this.state.show ? this.paddingTB + 'px 4px' : '0'
           }}
