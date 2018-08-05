@@ -13,6 +13,7 @@ There are component-specific styles in base.css.
 
 ### Notes
 * Buttons in the toolbar can receive the "active" classe.
+* I think I need to register a hook in editor-events to check if the article was modified. Could be a boolean and the first on-change is triggering it. Now for the two Editor components I'll need something else (maybe register an event to on-input at first, then unregister it at first occurence).
 
 ## TODO
 - [ ] Main.js doesn't have semicolons (copied it from elsewhere) - Can prettier do something for me there?
