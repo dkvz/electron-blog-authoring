@@ -19,6 +19,7 @@ class App extends Component {
     this.closeSaveModal = this.closeSaveModal.bind(this);
     this.setEditorRef = this.setEditorRef.bind(this);
     this.metaChanged = this.metaChanged.bind(this);
+    this.isArticleValid = this.isArticleValid.bind(this);
     this.state = {
       statusText: 'App. Started',
       showSaveModal: false,
@@ -35,6 +36,12 @@ class App extends Component {
     // I'm going to store the editor (textarea, most likely)
     // elements in this object:
     this.editors = {};
+  }
+
+  isArticleValid() {
+    return (this.state.articleMeta.title && 
+      (!this.state.articleMeta.short && this.state.articleMeta.articleUrl)
+      && this.state.articleMeta.userId) ? true : false;
   }
 
   setEditorRef(name) {
@@ -55,7 +62,6 @@ class App extends Component {
       (e.target.type.indexOf('checkbox') >= 0) ? 
         e.target.checked : e.target.value;
     this.setState({articleMeta});
-    console.log(this.state);
   }
 
   openClicked() {
