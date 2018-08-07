@@ -76,8 +76,8 @@ class App extends Component {
   /**
    * getArticle: allows forming the entire article object
    * to serve for other purposes.
-   * editor-events.js binds this function to its internal
-   * saving mechanism.
+   * editor-events.js uses this method to get the current 
+   * data.
    */
   getArticle() {
     return Object.assign({
@@ -87,12 +87,7 @@ class App extends Component {
   }
 
   newArticle() {
-    if (this.state.modified) {
-      // Ask for confirmation:
-      if (editorEvents.confirmDialog('Erase current data?') === 0) {
-        return;
-      }
-    }
+    if (!this._confirmWipe()) return;
     this.setState(
       {
         articleMeta: Object.assign({}, editorEvents.emptyArticle),
@@ -102,8 +97,18 @@ class App extends Component {
     this.resetEditors();
   }
 
+  _confirmWipe() {
+    if (this.state.modified) {
+      // Ask for confirmation:
+      if (editorEvents.confirmDialog('Erase current data?') === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   openClicked() {
-    console.log(this.editors.content.value);
+    if (this._confirmWipe()) editorEvents.sendMessage('openJSON');
   }
 
   setArticle(article) {
@@ -119,8 +124,8 @@ class App extends Component {
     // I could set the editor values inside a function given to setState as 
     // an argument.
     this.setState({articleMeta: artMeta});
-    this.editors['summary'] = article.summary;
-    this.editors['content'] = article.content;
+    this.editors['summary'].value = article.summary;
+    this.editors['content'].value = article.content;
   }
 
   resetEditors() {

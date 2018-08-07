@@ -22,3 +22,4 @@ There are component-specific styles in base.css.
 - [ ] Fix a minimum window width and height. The modals max-width must be adapted in consequence.
 - [ ] For the moment, saving doesn't reset state.modified to false in App.jsx. It should.
 - [ ] Once I reconcile the previous point I can add a marker for modified article in the status bar or application title.
+- [ ] Make it so that you can open JSON encoded in something else than utf-8.
