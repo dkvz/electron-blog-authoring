@@ -1,10 +1,13 @@
 const { h } = require("preact");
 
-const Toolbar = ( { openClicked, saveClicked, notImplemented } ) => {
+const Toolbar = ( { openClicked, saveClicked, notImplemented, newClicked } ) => {
   return (
     <header class="toolbar toolbar-header">
       <div class="toolbar-actions">
         <div class="btn-group">
+          <button class="btn btn-large btn-default" onClick={newClicked}>
+            <span class="icon icon-newspaper" />
+          </button>
           <button class="btn btn-large btn-default" onClick={openClicked}>
             <span class="icon icon-folder" />
           </button>

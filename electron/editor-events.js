@@ -10,6 +10,7 @@ const editorEvents = {
     userId: 1,
     short: false,
     published: false,
+    date: null,
     tags: []
   },
 
@@ -23,6 +24,18 @@ const editorEvents = {
         type: type,
         title: this.appTitle,
         buttons: ['OK']
+      }
+    );
+  },
+
+  confirmDialog: function(msg) {
+    return remote.dialog.showMessageBox(
+      remote.getCurrentWindow(),
+      {
+        message: msg,
+        type: 'question',
+        title: this.appTitle,
+        buttons: ['Cancel', 'OK']
       }
     );
   },

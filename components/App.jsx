@@ -22,6 +22,9 @@ class App extends Component {
     this.isArticleValid = this.isArticleValid.bind(this);
     this.getArticle = this.getArticle.bind(this);
     this.newArticle = this.newArticle.bind(this);
+    this.newClicked = this.newClicked.bind(this);
+    this.setArticle = this.setArticle.bind(this);
+    this.resetEditors = this.resetEditors.bind(this);
     this.state = {
       statusText: 'App. Started',
       showSaveModal: false,
@@ -86,7 +89,9 @@ class App extends Component {
   newArticle() {
     if (this.state.modified) {
       // Ask for confirmation:
-
+      if (editorEvents.confirmDialog('Erase current data?') === 0) {
+        return;
+      }
     }
     this.setState(
       {
@@ -94,12 +99,33 @@ class App extends Component {
         modified: false
       }
     );
-    this.editors['summary'].value = '';
-    this.editors['content'].value = '';
+    this.resetEditors();
   }
 
   openClicked() {
     console.log(this.editors.content.value);
+  }
+
+  setArticle(article) {
+    const artMeta = Object.assign({}, editorEvents.emptyArticle);
+    artMeta.title = article.title;
+    artMeta.thumbImage = article.thumbImage;
+    artMeta.short = article.short ? true : false;
+    artMeta.published = article.published ? true: false;
+    if (article.tags) artMeta.tags = article.tags;
+    if (article.date) artMeta.date = article.date;
+    if (article.id && article.id > 0) artMeta.id = article.id;
+    if (article.userId && article.userId > 0) artMeta.userId = article.userId;
+    // I could set the editor values inside a function given to setState as 
+    // an argument.
+    this.setState({articleMeta: artMeta});
+    this.editors['summary'] = article.summary;
+    this.editors['content'] = article.content;
+  }
+
+  resetEditors() {
+    this.editors['summary'].value = '';
+    this.editors['content'].value = '';
   }
 
   saveClicked() {
@@ -112,6 +138,10 @@ class App extends Component {
 
   notImplemented() {
     editorEvents.msgBox('Not implemented');
+  }
+
+  newClicked() {
+    this.newArticle();
   }
 
   closeSaveModal() {
@@ -131,6 +161,7 @@ class App extends Component {
         <Toolbar 
           openClicked={this.openClicked} 
           saveClicked={this.saveClicked} 
+          newClicked={this.newClicked}
           notImplemented={this.notImplemented}
         />
         <div class="window-content">
