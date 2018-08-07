@@ -44,15 +44,21 @@ const editorEvents = {
     remote.getCurrentWebContents().send(msg);
   },
 
-  registerSaveJSON: function(getter) {
+  _registerSaveJSON: function() {
     ipcRenderer.on('saveJSON', _ => {
-      const art = getter();
+      const art = this.articleEditor.getArticle();
       console.log(art);
     });
   },
 
-  unregisterSaveJSON: function(func) {
+  unregisterArticleEditor: function() {
+    this.articleEditor = null;
     ipcRenderer.removeAllListeners('saveJSON');
+  },
+
+  registerArticleEditor(articleEditor) {
+    this.articleEditor = articleEditor;
+    this._registerSaveJSON();
   }
 
 };

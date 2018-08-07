@@ -38,11 +38,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    editorEvents.registerSaveJSON(this.getArticle);
+    editorEvents.registerArticleEditor(this);
   }
 
   componentWillUnmount() {
-    editorEvents.unregisterSaveJSON();
+    editorEvents.unregisterArticleEditor();
   }
 
   isArticleValid() {
