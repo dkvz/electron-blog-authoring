@@ -6,6 +6,9 @@ const {app, BrowserWindow, ipcMain} = require('electron')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+const appTitle = 'Blog Authoring';
+global.appTitle = appTitle;
+
 function createWindow () {
   if (process.env.NODE_ENV === 'dev') console.log('DEV MODE')
   else console.log('CAREFUL: NOT DEV MODE')

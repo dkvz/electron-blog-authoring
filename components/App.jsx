@@ -20,22 +20,26 @@ class App extends Component {
     this.setEditorRef = this.setEditorRef.bind(this);
     this.metaChanged = this.metaChanged.bind(this);
     this.isArticleValid = this.isArticleValid.bind(this);
+    this.getArticle = this.getArticle.bind(this);
+    this.newArticle = this.newArticle.bind(this);
     this.state = {
       statusText: 'App. Started',
       showSaveModal: false,
       editorFontSize: '1.2em',
-      articleMeta: {
-        title: '',
-        articleUrl: '',
-        thumbImage: '',
-        userId: 1,
-        short: false,
-        published: false
-      }
+      modified: false,
+      articleMeta: Object.assign({}, editorEvents.emptyArticle)
     };
     // I'm going to store the editor (textarea, most likely)
     // elements in this object:
     this.editors = {};
+  }
+
+  componentDidMount() {
+    editorEvents.registerSaveJSON(this.getArticle);
+  }
+
+  componentWillUnmount() {
+    editorEvents.unregisterSaveJSON();
   }
 
   isArticleValid() {
@@ -61,7 +65,37 @@ class App extends Component {
     articleMeta[e.target.name] = 
       (e.target.type.indexOf('checkbox') >= 0) ? 
         e.target.checked : e.target.value;
-    this.setState({articleMeta});
+    this.setState(
+      {articleMeta: articleMeta, modified: true}
+    );
+  }
+
+  /**
+   * getArticle: allows forming the entire article object
+   * to serve for other purposes.
+   * editor-events.js binds this function to its internal
+   * saving mechanism.
+   */
+  getArticle() {
+    return Object.assign({
+      content: this.editors['content'].value,
+      summary: this.editors['summary'].value
+    }, this.state.articleMeta);
+  }
+
+  newArticle() {
+    if (this.state.modified) {
+      // Ask for confirmation:
+
+    }
+    this.setState(
+      {
+        articleMeta: Object.assign({}, editorEvents.emptyArticle),
+        modified: false
+      }
+    );
+    this.editors['summary'].value = '';
+    this.editors['content'].value = '';
   }
 
   openClicked() {
@@ -70,6 +104,10 @@ class App extends Component {
 
   saveClicked() {
     this.setState({showSaveModal: true});
+    // TODO: We might want to register something
+    // to get in return, as a successful save means
+    // we get to set state.modified to false.
+    editorEvents.sendMessage('saveJSON');
   }
 
   notImplemented() {

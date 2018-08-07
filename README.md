@@ -20,3 +20,4 @@ There are component-specific styles in base.css.
 - [ ] I'm implementing the W3C modal lul: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal2
 - [ ] There is a flash before the main page is rendered, it appears white for a few seconds. I can probably do something in index.jsx to have a starter content and replace it when the Preact stuff is ready.
 - [ ] Fix a minimum window width and height. The modals max-width must be adapted in consequence.
+- [ ] For the moment, saving doesn't reset state.modified to false in App.jsx. It should.
