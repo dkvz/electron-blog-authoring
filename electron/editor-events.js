@@ -47,8 +47,39 @@ const editorEvents = {
 
   _registerSaveJSON: function() {
     ipcRenderer.on('saveJSON', _ => {
-      const art = this.articleEditor.getArticle();
-      console.log(art);
+      // If a filename is set in the articleEditor, 
+      // use that one as the default path in the 
+      // dialog.
+      const opts = {
+        title: this.appTitle,
+        filters: [
+          {name: 'JSON files', extensions: ['json']}
+        ]
+      };
+      if (this.articleEditor.getOpenedFilename()) {
+        opts.defaultPath = this.articleEditor.getOpenedFilename();
+      }
+      const dest = remote.dialog.showSaveDialog(
+        remote.getCurrentWindow(),
+        opts
+      );
+      // showSaveDialog returns undefined if cancel was clicked.
+      if (dest) {
+        const art = this.articleEditor.getArticle();
+        if (art.id <= 0) delete art.id;
+        if (art.date === null) delete art.date;
+        fs.writeFile(
+          dest, JSON.stringify(art), 
+          'utf8', 
+          (err) => {
+          if (err) {
+            this.msgBox('Error trying to save file - \n' + err, 'error');
+          } else {
+            // File saved.
+            this.articleEditor.setModifiedAndFilename(false, dest);
+          }
+        }); 
+      }
     });
   },
 
@@ -73,7 +104,7 @@ const editorEvents = {
           } else {
             // Process this as JSON:
             try {
-              this.articleEditor.setArticle(JSON.parse(data));
+              this.articleEditor.setArticle(JSON.parse(data), fnames[0]);
             } catch(err) {
               this.msgBox('Error parsing the JSON - Invalid fomat');
             }

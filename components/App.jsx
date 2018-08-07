@@ -1,16 +1,15 @@
 const { h, Component } = require("preact");
 
-const Toolbar = require('../lib/Toolbar');
-const Footer = require('../lib/Footer');
-const Accordion = require('../lib/Accordion');
-const Editor = require('../lib/Editor');
-const Modal = require('../lib/Modal');
-const ArticleMeta = require('../lib/ArticleMeta');
+const Toolbar = require("../lib/Toolbar");
+const Footer = require("../lib/Footer");
+const Accordion = require("../lib/Accordion");
+const Editor = require("../lib/Editor");
+const Modal = require("../lib/Modal");
+const ArticleMeta = require("../lib/ArticleMeta");
 
-const editorEvents = require('../electron/editor-events');
+const editorEvents = require("../electron/editor-events");
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.openClicked = this.openClicked.bind(this);
@@ -25,11 +24,14 @@ class App extends Component {
     this.newClicked = this.newClicked.bind(this);
     this.setArticle = this.setArticle.bind(this);
     this.resetEditors = this.resetEditors.bind(this);
+    this.setModifiedAndFilename = this.setModifiedAndFilename.bind(this);
+    this.getOpenedFilename = this.getOpenedFilename.bind(this);
     this.state = {
-      statusText: 'App. Started',
+      statusText: "App. Started",
       showSaveModal: false,
-      editorFontSize: '1.2em',
+      editorFontSize: "1.2em",
       modified: false,
+      openedFilename: null,
       articleMeta: Object.assign({}, editorEvents.emptyArticle)
     };
     // I'm going to store the editor (textarea, most likely)
@@ -46,15 +48,17 @@ class App extends Component {
   }
 
   isArticleValid() {
-    return (this.state.articleMeta.title && 
-      (!this.state.articleMeta.short && this.state.articleMeta.articleUrl)
-      && this.state.articleMeta.userId) ? true : false;
+    return this.state.articleMeta.title &&
+      (!this.state.articleMeta.short && this.state.articleMeta.articleUrl) &&
+      this.state.articleMeta.userId
+      ? true
+      : false;
   }
 
   setEditorRef(name) {
     // I can't put the editor in the state
     // or it loops-rerender everything forever.
-    return (el) => {
+    return el => {
       this.editors[name] = el;
     };
   }
@@ -65,42 +69,47 @@ class App extends Component {
     // Value has a weird string "on" or "off" for them.
     // Also the checked prop is not undefined for the
     // non checkbox inputs. We have to check a string.
-    articleMeta[e.target.name] = 
-      (e.target.type.indexOf('checkbox') >= 0) ? 
-        e.target.checked : e.target.value;
-    this.setState(
-      {articleMeta: articleMeta, modified: true}
-    );
+    articleMeta[e.target.name] =
+      e.target.type.indexOf("checkbox") >= 0
+        ? e.target.checked
+        : e.target.value;
+    this.setState({ articleMeta: articleMeta, modified: true });
   }
 
   /**
    * getArticle: allows forming the entire article object
    * to serve for other purposes.
-   * editor-events.js uses this method to get the current 
+   * editor-events.js uses this method to get the current
    * data.
    */
   getArticle() {
-    return Object.assign({
-      content: this.editors['content'].value,
-      summary: this.editors['summary'].value
-    }, this.state.articleMeta);
+    return Object.assign(
+      {
+        content: this.editors["content"].value,
+        summary: this.editors["summary"].value
+      },
+      this.state.articleMeta
+    );
+  }
+
+  getOpenedFilename() {
+    return this.state.openedFilename;
   }
 
   newArticle() {
     if (!this._confirmWipe()) return;
-    this.setState(
-      {
-        articleMeta: Object.assign({}, editorEvents.emptyArticle),
-        modified: false
-      }
-    );
+    this.setState({
+      articleMeta: Object.assign({}, editorEvents.emptyArticle),
+      modified: false,
+      openedFilename: ""
+    });
     this.resetEditors();
   }
 
   _confirmWipe() {
     if (this.state.modified) {
       // Ask for confirmation:
-      if (editorEvents.confirmDialog('Erase current data?') === 0) {
+      if (editorEvents.confirmDialog("Erase current data?") === 0) {
         return false;
       }
     }
@@ -108,41 +117,50 @@ class App extends Component {
   }
 
   openClicked() {
-    if (this._confirmWipe()) editorEvents.sendMessage('openJSON');
+    if (this._confirmWipe()) editorEvents.sendMessage("openJSON");
   }
 
-  setArticle(article) {
+  setModifiedAndFilename(modified, filename) {
+    if (this.state.modified !== modified || this.state.filename !== filename)
+      this.setState({ modified: modified, openedFilename: filename });
+  }
+
+  setArticle(article, filename = "") {
     const artMeta = Object.assign({}, editorEvents.emptyArticle);
     artMeta.title = article.title;
     artMeta.thumbImage = article.thumbImage;
     artMeta.short = article.short ? true : false;
-    artMeta.published = article.published ? true: false;
+    artMeta.published = article.published ? true : false;
     if (article.tags) artMeta.tags = article.tags;
     if (article.date) artMeta.date = article.date;
     if (article.id && article.id > 0) artMeta.id = article.id;
     if (article.userId && article.userId > 0) artMeta.userId = article.userId;
-    // I could set the editor values inside a function given to setState as 
+    // I could set the editor values inside a function given to setState as
     // an argument.
-    this.setState({articleMeta: artMeta});
-    this.editors['summary'].value = article.summary;
-    this.editors['content'].value = article.content;
+    this.setState({
+      articleMeta: artMeta,
+      modified: false,
+      openedFilename: filename
+    });
+    this.editors["summary"].value = article.summary;
+    this.editors["content"].value = article.content;
   }
 
   resetEditors() {
-    this.editors['summary'].value = '';
-    this.editors['content'].value = '';
+    this.editors["summary"].value = "";
+    this.editors["content"].value = "";
   }
 
   saveClicked() {
-    this.setState({showSaveModal: true});
+    this.setState({ showSaveModal: true });
     // TODO: We might want to register something
     // to get in return, as a successful save means
     // we get to set state.modified to false.
-    editorEvents.sendMessage('saveJSON');
+    editorEvents.sendMessage("saveJSON");
   }
 
   notImplemented() {
-    editorEvents.msgBox('Not implemented');
+    editorEvents.msgBox("Not implemented");
   }
 
   newClicked() {
@@ -150,22 +168,23 @@ class App extends Component {
   }
 
   closeSaveModal() {
-    this.setState({showSaveModal: false});
+    this.setState({ showSaveModal: false });
   }
 
   render() {
     return (
       <div class="window">
-        <Modal 
-          id="saveModal" 
+        <Modal
+          id="saveModal"
           maxWidth="600px"
           show={this.state.showSaveModal}
-          closed={this.closeSaveModal}>
+          closed={this.closeSaveModal}
+        >
           <p>Is this working?</p>
         </Modal>
-        <Toolbar 
-          openClicked={this.openClicked} 
-          saveClicked={this.saveClicked} 
+        <Toolbar
+          openClicked={this.openClicked}
+          saveClicked={this.saveClicked}
           newClicked={this.newClicked}
           notImplemented={this.notImplemented}
         />
@@ -174,23 +193,26 @@ class App extends Component {
             <div class="pane app-layout">
               <Accordion label="Article Meta" show="true">
                 <ArticleMeta
-                  articleMeta={this.state.articleMeta} 
-                  metaChanged={this.metaChanged} />
+                  articleMeta={this.state.articleMeta}
+                  metaChanged={this.metaChanged}
+                />
               </Accordion>
               <Accordion label="Summary">
-                <Editor 
-                  className="form-control" 
-                  fontSize={this.state.editorFontSize} 
+                <Editor
+                  className="form-control"
+                  fontSize={this.state.editorFontSize}
                   height="230px"
-                  setEditorRef={this.setEditorRef('summary')} />
+                  setEditorRef={this.setEditorRef("summary")}
+                />
               </Accordion>
               <div class="form-group full-section">
                 <div class="form-headline">Article content</div>
-                <Editor 
-                  className="form-control" 
-                  flex="1" 
-                  fontSize={this.state.editorFontSize} 
-                  setEditorRef={this.setEditorRef('content')} />
+                <Editor
+                  className="form-control"
+                  flex="1"
+                  fontSize={this.state.editorFontSize}
+                  setEditorRef={this.setEditorRef("content")}
+                />
               </div>
             </div>
           </div>
@@ -199,7 +221,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 module.exports = App;
