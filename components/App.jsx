@@ -28,7 +28,7 @@ class App extends Component {
     this.getOpenedFilename = this.getOpenedFilename.bind(this);
     this.onEditorInput = this.onEditorInput.bind(this);
     this.state = {
-      statusText: "App. Started",
+      statusText: "No database",
       showSaveModal: false,
       editorFontSize: "1.2em",
       modified: false,
@@ -140,6 +140,7 @@ class App extends Component {
     const artMeta = Object.assign({}, editorEvents.emptyArticle);
     artMeta.title = article.title;
     artMeta.thumbImage = article.thumbImage;
+    artMeta.articleUrl = article.articleUrl;
     artMeta.short = article.short ? true : false;
     artMeta.published = article.published ? true : false;
     if (article.tags) artMeta.tags = article.tags;
@@ -235,7 +236,7 @@ class App extends Component {
         </div>
         <Footer statusText={this.state.statusText} 
           modified={this.state.modified} 
-          filename={this.state.openedFilename}
+          openedFilename={this.state.openedFilename}
           onlineArticleId={this.state.onlineArticleId}
         />
       </div>

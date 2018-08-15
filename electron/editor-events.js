@@ -46,7 +46,7 @@ const editorEvents = {
   },
 
   _registerSaveJSON: function() {
-    ipcRenderer.on('saveJSON', (saveAs) => {
+    ipcRenderer.on('saveJSON', (sender, saveAs) => {
       // If a filename is set in the articleEditor, 
       // use that one as the default path in the 
       // dialog.

@@ -16,7 +16,7 @@ const Footer = props => {
       openedFilename = undefined;
     }
   }
-  
+
   return (
     <footer class="toolbar toolbar-footer">
       <h1 class="title">
