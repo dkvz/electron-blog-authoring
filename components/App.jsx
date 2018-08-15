@@ -32,6 +32,7 @@ class App extends Component {
       editorFontSize: "1.2em",
       modified: false,
       openedFilename: null,
+      onlineArticleId: -1,
       articleMeta: Object.assign({}, editorEvents.emptyArticle)
     };
     // I'm going to store the editor (textarea, most likely)
@@ -101,7 +102,8 @@ class App extends Component {
     this.setState({
       articleMeta: Object.assign({}, editorEvents.emptyArticle),
       modified: false,
-      openedFilename: ""
+      openedFilename: "",
+      onlineArticleId: -1
     });
     this.resetEditors();
   }
@@ -122,10 +124,14 @@ class App extends Component {
 
   setModifiedAndFilename(modified, filename) {
     if (this.state.modified !== modified || this.state.filename !== filename)
-      this.setState({ modified: modified, openedFilename: filename });
+      this.setState({
+        modified: modified, 
+        openedFilename: filename,
+        onlineArticleId: -1
+      });
   }
 
-  setArticle(article, filename = "") {
+  setArticle(article, filename = '', onlineArticleId = -1) {
     const artMeta = Object.assign({}, editorEvents.emptyArticle);
     artMeta.title = article.title;
     artMeta.thumbImage = article.thumbImage;
@@ -140,7 +146,8 @@ class App extends Component {
     this.setState({
       articleMeta: artMeta,
       modified: false,
-      openedFilename: filename
+      openedFilename: filename,
+      onlineArticleId: onlineArticleId
     });
     this.editors["summary"].value = article.summary;
     this.editors["content"].value = article.content;
@@ -152,10 +159,6 @@ class App extends Component {
   }
 
   saveClicked() {
-    this.setState({ showSaveModal: true });
-    // TODO: We might want to register something
-    // to get in return, as a successful save means
-    // we get to set state.modified to false.
     editorEvents.sendMessage("saveJSON");
   }
 

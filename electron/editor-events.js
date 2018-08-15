@@ -68,6 +68,8 @@ const editorEvents = {
         const art = this.articleEditor.getArticle();
         if (art.id <= 0) delete art.id;
         if (art.date === null) delete art.date;
+        // TODO: We should have some sort of spinner or busy cursor 
+        // being enabled somewhere around here.
         fs.writeFile(
           dest, JSON.stringify(art), 
           'utf8', 
