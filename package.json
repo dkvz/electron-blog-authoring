@@ -1,5 +1,6 @@
 {
   "name": "electron-blog-authoring",
+  "productName": "Blog Authoring",
   "version": "1.0.0",
   "description": "Electron authoring tool for my blog",
   "main": "electron/main.js",
