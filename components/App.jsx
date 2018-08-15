@@ -38,6 +38,10 @@ class App extends Component {
     // I'm going to store the editor (textarea, most likely)
     // elements in this object:
     this.editors = {};
+    // I'm creating these functions now otherwise they get 
+    // re-created at every render of the current component.
+    this.setEditorRefSummary = this.setEditorRef('summary');
+    this.setEditorRefContent = this.setEditorRef('content');
   }
 
   componentDidMount() {
@@ -205,7 +209,7 @@ class App extends Component {
                   className="form-control"
                   fontSize={this.state.editorFontSize}
                   height="230px"
-                  setEditorRef={this.setEditorRef("summary")}
+                  setEditorRef={this.setEditorRefSummary}
                 />
               </Accordion>
               <div class="form-group full-section">
@@ -214,13 +218,16 @@ class App extends Component {
                   className="form-control"
                   flex="1"
                   fontSize={this.state.editorFontSize}
-                  setEditorRef={this.setEditorRef("content")}
+                  setEditorRef={this.setEditorRefContent}
                 />
               </div>
             </div>
           </div>
         </div>
-        <Footer statusText={this.state.statusText} />
+        <Footer statusText={this.state.statusText} 
+          modified={this.state.modified} 
+          filename={this.state.openedFilename}
+          onlineArticleId={this.state.onlineArticleId} />
       </div>
     );
   }

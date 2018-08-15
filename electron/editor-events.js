@@ -46,23 +46,28 @@ const editorEvents = {
   },
 
   _registerSaveJSON: function() {
-    ipcRenderer.on('saveJSON', _ => {
+    ipcRenderer.on('saveJSON', (saveAs) => {
       // If a filename is set in the articleEditor, 
       // use that one as the default path in the 
       // dialog.
-      const opts = {
-        title: this.appTitle,
-        filters: [
-          {name: 'JSON files', extensions: ['json']}
-        ]
-      };
-      if (this.articleEditor.getOpenedFilename()) {
-        opts.defaultPath = this.articleEditor.getOpenedFilename();
+      let dest;
+      if (!saveAs && this.articleEditor.getOpenedFilename()) {
+        dest = this.articleEditor.getOpenedFilename();
+      } else {
+        const opts = {
+          title: this.appTitle,
+          filters: [
+            {name: 'JSON files', extensions: ['json']}
+          ]
+        };
+        if (this.articleEditor.getOpenedFilename()) {
+          opts.defaultPath = this.articleEditor.getOpenedFilename();
+        }
+        dest = remote.dialog.showSaveDialog(
+          remote.getCurrentWindow(),
+          opts
+        );
       }
-      const dest = remote.dialog.showSaveDialog(
-        remote.getCurrentWindow(),
-        opts
-      );
       // showSaveDialog returns undefined if cancel was clicked.
       if (dest) {
         const art = this.articleEditor.getArticle();
