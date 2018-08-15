@@ -23,3 +23,4 @@ There are component-specific styles in base.css.
 - [ ] For the moment, saving doesn't reset state.modified to false in App.jsx. It should.
 - [ ] Once I reconcile the previous point I can add a marker for modified article in the status bar or application title.
 - [ ] Make it so that you can open JSON encoded in something else than utf-8.
+- [ ] When comparing boolean values I should always use === or JS is actually casting or looking for "falsy" which is less effective.

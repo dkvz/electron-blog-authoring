@@ -26,6 +26,7 @@ class App extends Component {
     this.resetEditors = this.resetEditors.bind(this);
     this.setModifiedAndFilename = this.setModifiedAndFilename.bind(this);
     this.getOpenedFilename = this.getOpenedFilename.bind(this);
+    this.onEditorInput = this.onEditorInput.bind(this);
     this.state = {
       statusText: "App. Started",
       showSaveModal: false,
@@ -178,6 +179,12 @@ class App extends Component {
     this.setState({ showSaveModal: false });
   }
 
+  onEditorInput() {
+    if (this.state.modified === false) {
+      this.setState({modified: true});
+    }
+  }
+
   render() {
     return (
       <div class="window">
@@ -210,6 +217,7 @@ class App extends Component {
                   fontSize={this.state.editorFontSize}
                   height="230px"
                   setEditorRef={this.setEditorRefSummary}
+                  onInput={this.onEditorInput}
                 />
               </Accordion>
               <div class="form-group full-section">
@@ -219,6 +227,7 @@ class App extends Component {
                   flex="1"
                   fontSize={this.state.editorFontSize}
                   setEditorRef={this.setEditorRefContent}
+                  onInput={this.onEditorInput}
                 />
               </div>
             </div>
@@ -227,7 +236,8 @@ class App extends Component {
         <Footer statusText={this.state.statusText} 
           modified={this.state.modified} 
           filename={this.state.openedFilename}
-          onlineArticleId={this.state.onlineArticleId} />
+          onlineArticleId={this.state.onlineArticleId}
+        />
       </div>
     );
   }

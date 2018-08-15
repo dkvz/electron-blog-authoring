@@ -42,7 +42,8 @@ class Editor extends Component {
       <textarea 
         className={this.props.className} 
         style={style}
-        ref={this.props.setEditorRef}
+        ref={this.props.setEditorRef} 
+        onInput={this.props.onInput}
         >
       </textarea>
     );
