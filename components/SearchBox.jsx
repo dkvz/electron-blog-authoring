@@ -1,4 +1,5 @@
 const { h, Component } = require('preact');
+const { shallowEqual } = require('../utils/react-utils');
 
 class SearchBox extends Component {
 
@@ -9,6 +10,14 @@ class SearchBox extends Component {
     };
     this.search = this.search.bind(this);
     this.textFieldKeyUp = this.textFieldKeyUp.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // We don't need to do anything if the state changed.
+    if (shallowEqual(this.state, prevState)) {
+      this.textField.focus();
+      this.textField.select();
+    }
   }
 
   search(forward) {

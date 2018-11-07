@@ -192,7 +192,7 @@ class App extends Component {
 
   showSearchBox() {
     // Check if we have an editor focused:
-
+    
     // Show the search box:
     this.setState({showSearchBox: true});
   }

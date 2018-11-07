@@ -153,6 +153,7 @@ html, body {
   font-size: 1.3em;
   margin-left: 5px;
   color: #333;
+  cursor: pointer;
 }
 
 .SearchBox input[type="checkbox"] {
