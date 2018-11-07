@@ -195,14 +195,53 @@ class App extends Component {
   }
 
   showSearchBox() {
-    // Check if we have an editor focused:
-    console.log(this.focusedEditor);
     // Show the search box:
     this.setState({showSearchBox: true});
   }
 
   processSearch(e) {
-    console.log(e);
+    const currentEditor = this.editors[this.focusedEditor];
+    let reg;
+    try {
+      reg = new RegExp(e.detail.query, e.detail.caseSensitive ? 'i': '');
+    } catch(err) {
+      // Regex is invalid.
+      editorEvents.msgBox('Search regex is invalid.');
+      return;
+    }
+    if (e.detail.forward) {
+      // We search starting from selectionStart.
+      // If nothing is found and selectionStart was not 0, 
+      // we should ask if the user wants to search from the start.
+      const pos = currentEditor.value.substring(
+        currentEditor.selectionEnd, 
+        currentEditor.value.length
+      ).search(reg);
+      if (pos >= 0) {
+        // Found something:
+        currentEditor.focus();
+        const relativePos = currentEditor.selectionEnd + pos;
+        currentEditor.setSelectionRange(
+          relativePos, 
+          relativePos + e.detail.query.length
+        );
+      } else {
+        // No matches.
+        // I need a dialog to ask if we start from 0.
+        if (editorEvents.confirmDialog(
+          'No matches found after current position. Start from 0?'
+          ) !== 0) {
+            currentEditor.setSelectionRange(0, 0);
+            this.processSearch(e);
+        }
+      }
+    } else {
+      // Backwards is harder. I need to use match and go to 
+      // the latest match.
+      // There is the elusive lookbehind crazy regexp but uh...
+      // Yeah I'd rather not.
+
+    }
   }
 
   render() {
