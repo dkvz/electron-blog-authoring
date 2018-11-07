@@ -129,11 +129,18 @@ const editorEvents = {
     });
   },
 
+  _registerShowSearchBox: function() {
+    ipcRenderer.on('showSearchBox', _ => {
+      this.articleEditor.showSearchBox();
+    });
+  },
+
   unregisterArticleEditor: function() {
     this.articleEditor = null;
     ipcRenderer.removeAllListeners('saveJSON');
     ipcRenderer.removeAllListeners('openJSON');
     ipcRenderer.removeAllListeners('newArticle');
+    ipcRenderer.removeAllListeners('showSearchBox');
   },
 
   registerArticleEditor: function(articleEditor) {
@@ -141,6 +148,7 @@ const editorEvents = {
     this._registerSaveJSON();
     this._registerOpenJSON();
     this._registerNewArticle();
+    this._registerShowSearchBox();
   }
 
 };

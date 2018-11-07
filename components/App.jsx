@@ -28,6 +28,8 @@ class App extends Component {
     this.setModifiedAndFilename = this.setModifiedAndFilename.bind(this);
     this.getOpenedFilename = this.getOpenedFilename.bind(this);
     this.onEditorInput = this.onEditorInput.bind(this);
+    this.processSearch = this.processSearch.bind(this);
+    this.showSearchBox = this.showSearchBox.bind(this);
     this.state = {
       statusText: "No database",
       showSaveModal: false,
@@ -179,13 +181,24 @@ class App extends Component {
   }
 
   closeSaveModal() {
-    this.setState({ showSaveModal: false });
+    this.setState({showSaveModal: false});
   }
 
   onEditorInput() {
     if (this.state.modified === false) {
       this.setState({modified: true});
     }
+  }
+
+  showSearchBox() {
+    // Check if we have an editor focused:
+
+    // Show the search box:
+    this.setState({showSearchBox: true});
+  }
+
+  processSearch(e) {
+    console.log(e);
   }
 
   render() {
@@ -208,7 +221,9 @@ class App extends Component {
         <div class="window-content">
           <div class="pane-group">
             <div class="pane app-layout">
-              <SearchBox show={this.state.showSearchBox} />
+              <SearchBox show={this.state.showSearchBox}
+                onClose={() => this.setState({showSearchBox: false})}
+                onSearch={this.processSearch} />
               <Accordion label="Article Meta" show="true">
                 <ArticleMeta
                   articleMeta={this.state.articleMeta}

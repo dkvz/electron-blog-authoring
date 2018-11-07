@@ -30,7 +30,8 @@ There are component-specific styles in base.css.
 
 ## TODO
 - [ ] I should change all my uses of the name elsewhere by a call to app.getName().
-- [ ] Add a Save As menu item.
+- [ ] Pressing escape in the search box should call the onClose event to hide it.
+- [x] Add a Save As menu item.
 - [ ] Main.js doesn't have semicolons (copied it from elsewhere) - Can prettier do something for me there?
 - [ ] There is a flash before the main page is rendered, it appears white for a few seconds. I can probably do something in index.jsx to have a starter content and replace it when the Preact stuff is ready.
 - [ ] Fix a minimum window width and height. The modals max-width must be adapted in consequence.

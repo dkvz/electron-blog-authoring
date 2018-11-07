@@ -47,6 +47,15 @@ const MenuTemplate = (mainWindow) => {
         { role: 'copy' },
         { role: 'paste' },
         { role: 'pasteandmatchstyle' },
+        { type: 'separator' },
+        {
+          label: 'Find',
+          accelerator: 'CmdOrCtrl+F',
+          click() {
+            mainWindow.webContents.send('showSearchBox');
+          }
+        },
+        { type: 'separator' },
         { role: 'delete' },
         { role: 'selectall' }
       ]
