@@ -2,7 +2,7 @@ const path = require('path');
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 
-const menuTemplate = require('./application-menu');
+const MenuTemplate = require('./application-menu');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -22,7 +22,9 @@ function createWindow() {
     icon: path.join(__dirname, '../assets/images/icon-64x64.png')
   });
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
+  // The app menu has to know about the mainWindow because we need to 
+  // send events to that specific renderer process:
+  Menu.setApplicationMenu(Menu.buildFromTemplate(MenuTemplate(mainWindow)));
 
   // and load the index.html of the app.
   mainWindow.loadFile('views/index.html');
