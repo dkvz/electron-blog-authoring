@@ -121,16 +121,26 @@ const editorEvents = {
     });
   },
 
+  _registerNewArticle: function() {
+    ipcRenderer.on('newArticle', _ => {
+      // The articleEditor will ask for confirmation if the article
+      // is not empty.
+      this.articleEditor.newArticle();
+    });
+  },
+
   unregisterArticleEditor: function() {
     this.articleEditor = null;
     ipcRenderer.removeAllListeners('saveJSON');
     ipcRenderer.removeAllListeners('openJSON');
+    ipcRenderer.removeAllListeners('newArticle');
   },
 
   registerArticleEditor: function(articleEditor) {
     this.articleEditor = articleEditor;
     this._registerSaveJSON();
     this._registerOpenJSON();
+    this._registerNewArticle();
   }
 
 };

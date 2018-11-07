@@ -7,6 +7,13 @@ const MenuTemplate = (mainWindow) => {
       label: 'File',
       submenu: [
         {
+          label: 'New',
+          accelerator: 'CmdOrCtrl+N',
+          click() {
+            mainWindow.webContents.send('newArticle');
+          }
+        },
+        {
           label: 'Open JSON',
           accelerator: 'CmdOrCtrl+O',
           click() {
