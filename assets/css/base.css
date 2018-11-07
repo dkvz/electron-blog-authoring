@@ -124,7 +124,7 @@ html, body {
   position: fixed;
   top: 0;
   right: 0;
-  border: 2px solid #333;
+  border: 1px solid #333;
   padding: 2px 6px 2px 6px;
   display: flex;
   align-items: center;
@@ -169,6 +169,11 @@ html, body {
   text get selected when we double 
   click: */
   user-select: none;
+  /* I need the two following styles
+  to reset what Photon is doing to
+  label: */
+  margin: 0;
+  display: inline;
 }
 
 .SearchBox .chkbox-wrapper label:not(.checked) {

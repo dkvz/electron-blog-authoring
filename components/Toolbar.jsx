@@ -1,4 +1,4 @@
-const { h } = require("preact");
+const { h } = require('preact');
 
 const Toolbar = ( { openClicked, saveClicked, notImplemented, newClicked } ) => {
   return (

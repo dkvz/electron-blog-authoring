@@ -1,4 +1,4 @@
-const { h, Component } = require("preact");
+const { h, Component } = require('preact');
 
 class SearchBox extends Component {
 
@@ -35,15 +35,15 @@ class SearchBox extends Component {
   render() {
     return (
       <div className="SearchBox"
-        style={{ display: this.props.show ? 'block' : 'none' }}>
+        style={{ display: this.props.show ? 'flex' : 'none' }}>
         <input type="text" 
-          ref={(ref) => this.textField = ref} 
+          ref={(ref) => {this.textField = ref}} 
           onKeyUp={this.textFieldKeyUp}
           />
         <span className="chkbox-wrapper">
           <label title="Enable/disable case sensitive search"
             className={this.state.caseSensitive && 'checked'}
-            onClick={this.setState({caseSensitive: !this.state.caseSensitive})}>
+            onClick={() => this.setState({caseSensitive: !this.state.caseSensitive})}>
             Aa
           </label>
           <input type="checkbox" checked={this.state.caseSensitive} />

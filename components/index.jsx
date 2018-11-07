@@ -1,4 +1,4 @@
-const { h, render } = require("preact");
+const { h, render } = require('preact');
 const App = require('../lib/App');
 
 // This is the script that gets ran into

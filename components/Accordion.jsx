@@ -3,7 +3,7 @@
  * https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_accordion_symbol
  */
 
-const { h, Component } = require("preact");
+const { h, Component } = require('preact');
 
 class Accordion extends Component {
   constructor(props) {

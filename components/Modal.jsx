@@ -1,4 +1,4 @@
-const { h, Component } = require("preact");
+const { h, Component } = require('preact');
 
 class Modal extends Component {
   constructor(props) {

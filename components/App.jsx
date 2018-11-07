@@ -6,6 +6,7 @@ const Accordion = require("../lib/Accordion");
 const Editor = require("../lib/Editor");
 const Modal = require("../lib/Modal");
 const ArticleMeta = require("../lib/ArticleMeta");
+const SearchBox = require("../lib/SearchBox");
 
 const editorEvents = require("../electron/editor-events");
 
@@ -30,6 +31,7 @@ class App extends Component {
     this.state = {
       statusText: "No database",
       showSaveModal: false,
+      showSearchBox: false,
       editorFontSize: "1.2em",
       modified: false,
       openedFilename: null,
@@ -206,6 +208,7 @@ class App extends Component {
         <div class="window-content">
           <div class="pane-group">
             <div class="pane app-layout">
+              <SearchBox show={this.state.showSearchBox} />
               <Accordion label="Article Meta" show="true">
                 <ArticleMeta
                   articleMeta={this.state.articleMeta}
