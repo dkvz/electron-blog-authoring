@@ -36,8 +36,12 @@ class SearchBox extends Component {
   }
 
   textFieldKeyUp(e) {
-    if (e.key === 'Enter') {
-      this.search(true);
+    switch (e.key) {
+      case 'Enter':
+        this.search(true);
+        break;
+      case 'Escape':
+        this.props.onClose();
     }
   }
 

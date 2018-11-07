@@ -43,8 +43,11 @@ class App extends Component {
     // I'm going to store the editor (textarea, most likely)
     // elements in this object:
     this.editors = {};
+    this.focusedEditor = 'content';
     // I'm creating these functions now otherwise they get 
     // re-created at every render of the current component.
+    // I think I could've just called setEditorRef from an
+    // arrow function in the JSX but uhm...
     this.setEditorRefSummary = this.setEditorRef('summary');
     this.setEditorRefContent = this.setEditorRef('content');
   }
@@ -108,6 +111,7 @@ class App extends Component {
 
   newArticle() {
     if (!this._confirmWipe()) return;
+    this.focusedEditor = 'content';
     this.setState({
       articleMeta: Object.assign({}, editorEvents.emptyArticle),
       modified: false,
@@ -192,7 +196,7 @@ class App extends Component {
 
   showSearchBox() {
     // Check if we have an editor focused:
-    
+    console.log(this.focusedEditor);
     // Show the search box:
     this.setState({showSearchBox: true});
   }
@@ -223,7 +227,8 @@ class App extends Component {
             <div class="pane app-layout">
               <SearchBox show={this.state.showSearchBox}
                 onClose={() => this.setState({showSearchBox: false})}
-                onSearch={this.processSearch} />
+                onSearch={this.processSearch} 
+              />
               <Accordion label="Article Meta" show="true">
                 <ArticleMeta
                   articleMeta={this.state.articleMeta}
@@ -237,6 +242,7 @@ class App extends Component {
                   height="230px"
                   setEditorRef={this.setEditorRefSummary}
                   onInput={this.onEditorInput}
+                  onFocus={() => {this.focusedEditor = 'summary';}}
                 />
               </Accordion>
               <div class="form-group full-section">
@@ -247,6 +253,7 @@ class App extends Component {
                   fontSize={this.state.editorFontSize}
                   setEditorRef={this.setEditorRefContent}
                   onInput={this.onEditorInput}
+                  onFocus={() => {this.focusedEditor = 'content';}}
                 />
               </div>
             </div>
