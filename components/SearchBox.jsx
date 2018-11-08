@@ -48,7 +48,11 @@ class SearchBox extends Component {
   render() {
     return (
       <div className="SearchBox"
-        style={{ display: this.props.show ? 'flex' : 'none' }}>
+        style={{ 
+          display: this.props.show ? 'flex' : 'none',
+          top: this.props.top ? this.props.top + 'px' : '0px',
+          right: this.props.right ? this.props.right + 'px' : '0px'
+          }}>
         <input type="text" 
           ref={(ref) => {this.textField = ref}} 
           onKeyUp={this.textFieldKeyUp}

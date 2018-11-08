@@ -195,8 +195,19 @@ class App extends Component {
   }
 
   showSearchBox() {
-    // Show the search box:
-    this.setState({showSearchBox: true});
+    // Show the search box.
+    // Position it in regards to last focused editor.
+    // TODO: if it's summary, it's possible that the accordion
+    // was closed in the meantime. Which will produce a weird 
+    // result. We should keep the open status of the accordion
+    // somewhere.
+    const rect = this.editors[this.focusedEditor].getBoundingClientRect();
+    console.log(rect.right);
+    this.setState({
+      showSearchBox: true,
+      searchBoxRight: rect.left,
+      searchBoxTop: rect.top
+    });
   }
 
   processSearch(e) {
@@ -295,8 +306,10 @@ class App extends Component {
         <div class="window-content">
           <div class="pane-group">
             <div class="pane app-layout">
-              <SearchBox show={this.state.showSearchBox}
-                onClose={() => this.setState({showSearchBox: false})}
+              <SearchBox show={this.state.showSearchBox} 
+                top={this.state.searchBoxTop} 
+                right={this.state.searchBoxRight} 
+                onClose={() => this.setState({showSearchBox: false})} 
                 onSearch={this.processSearch} 
               />
               <Accordion label="Article Meta" show="true">
