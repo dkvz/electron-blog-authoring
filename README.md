@@ -31,6 +31,7 @@ There are component-specific styles in base.css.
 ## TODO
 - [ ] I should change all my uses of the name elsewhere by a call to app.getName().
 - [ ] Pressing escape in the search box should call the onClose event to hide it.
+- [ ] Since searching uses regex, determining the length of the search string is erratic, so I use the length of the regex string to highlight the text, but that might be the wrong size. We may want to think on that one day.
 - [x] Add a Save As menu item.
 - [ ] Main.js doesn't have semicolons (copied it from elsewhere) - Can prettier do something for me there?
 - [ ] There is a flash before the main page is rendered, it appears white for a few seconds. I can probably do something in index.jsx to have a starter content and replace it when the Preact stuff is ready.

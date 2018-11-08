@@ -203,7 +203,7 @@ class App extends Component {
     const currentEditor = this.editors[this.focusedEditor];
     let reg;
     try {
-      reg = new RegExp(e.detail.query, e.detail.caseSensitive ? 'i': '');
+      reg = new RegExp(e.detail.query, e.detail.caseSensitive ? 'g': 'ig');
     } catch(err) {
       // Regex is invalid.
       editorEvents.msgBox('Search regex is invalid.');
@@ -236,11 +236,42 @@ class App extends Component {
         }
       }
     } else {
-      // Backwards is harder. I need to use match and go to 
+      // Backwards is harder. I need to use exec and go to 
       // the latest match.
       // There is the elusive lookbehind crazy regexp but uh...
       // Yeah I'd rather not.
-
+      // We need to start from cursor position, selectionStart.
+      const regExec = _ => reg.exec(currentEditor.value.substring(
+        0,
+        currentEditor.selectionStart
+      ));
+      let match = regExec();
+      if (match) {
+        // Go to the latest match:
+        let pos, len;
+        do {
+          pos = match.index;
+          len = match[0].length;
+          match = regExec();
+        } while (match);
+        // We should have the latest match inside of pos.
+        currentEditor.focus();
+        currentEditor.setSelectionRange(
+          pos,
+          pos + len
+        );
+      } else {
+        // Nothing found, ask if user wants to search from the end.
+        if (editorEvents.confirmDialog(
+          'No matches found before current position. Search from the end?'
+          ) !== 0) {
+            currentEditor.setSelectionRange(
+              currentEditor.value.length,
+              currentEditor.value.length
+            );
+            this.processSearch(e);
+        }
+      }
     }
   }
 
