@@ -41,7 +41,7 @@ class ArticleMeta extends Component {
           className="form-control" style={inputStyle} 
           name="title" value={metaProp('title')}
           onInput={this.props.metaChanged} />
-        <button style={spanerz(2)}>Tags...</button>
+        <button style={spanerz(2)} onClick={this.props.tagsClicked}>Tags...</button>
 
         <label style={labelStyle} htmlFor="thumbImput">Thumb image:</label>
         <input id="thumbInput" type="text" 

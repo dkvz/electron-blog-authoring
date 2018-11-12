@@ -29,6 +29,7 @@ There are component-specific styles in base.css.
 * I think I need to register a hook in editor-events to check if the article was modified. Could be a boolean and the first on-change is triggering it. Now for the two Editor components I'll need something else (maybe register an event to on-input at first, then unregister it at first occurence).
 
 ## TODO
+- [ ] We can't Ctrl + Z the insert paragraph thing. We should be able to. Maybe by sending an editor event?
 - [ ] I should change all my uses of the name elsewhere by a call to app.getName().
 - [ ] Pressing escape in the search box should call the onClose event to hide it.
 - [ ] Since searching uses regex, determining the length of the search string is erratic, so I use the length of the regex string to highlight the text, but that might be the wrong size. We may want to think on that one day.

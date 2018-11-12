@@ -9,6 +9,8 @@ class Modal extends Component {
     };
   }
 
+  // I'm using float in here for some reason.
+  // Old habits die hard.
   render() {
     return (
       <div className="Modal" 
@@ -17,7 +19,7 @@ class Modal extends Component {
           style={{'max-width': this.props.maxWidth ? this.props.maxWidth : null}}>
           <header className="toolbar toolbar-header">
             <span className="Modal-close" 
-              onClick={(e) => this.props.closed(e)}>
+              onClick={this.props.onClose}>
               &times;
             </span>
             <h1 className="title">{this.state.title}</h1>
@@ -27,7 +29,7 @@ class Modal extends Component {
           </div>
           <footer className="toolbar toolbar-footer Modal-footer">
             <button className="btn btn-primary" 
-              onClick={(e) => this.props.closed(e)}
+              onClick={this.props.onClose}
               style={{float: 'right'}}>
               Close
             </button>

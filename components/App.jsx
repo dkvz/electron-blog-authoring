@@ -7,6 +7,7 @@ const Editor = require("../lib/Editor");
 const Modal = require("../lib/Modal");
 const ArticleMeta = require("../lib/ArticleMeta");
 const SearchBox = require("../lib/SearchBox");
+const Tags = require("../lib/Tags");
 
 const editorEvents = require("../electron/editor-events");
 
@@ -16,7 +17,7 @@ class App extends Component {
     this.openClicked = this.openClicked.bind(this);
     this.saveClicked = this.saveClicked.bind(this);
     this.notImplemented = this.notImplemented.bind(this);
-    this.closeSaveModal = this.closeSaveModal.bind(this);
+    this.closeTagsModal = this.closeTagsModal.bind(this);
     this.setEditorRef = this.setEditorRef.bind(this);
     this.metaChanged = this.metaChanged.bind(this);
     this.isArticleValid = this.isArticleValid.bind(this);
@@ -32,7 +33,7 @@ class App extends Component {
     this.showSearchBox = this.showSearchBox.bind(this);
     this.state = {
       statusText: "No database",
-      showSaveModal: false,
+      showTagsModal: false,
       showSearchBox: false,
       editorFontSize: "1.2em",
       modified: false,
@@ -184,8 +185,8 @@ class App extends Component {
     this.newArticle();
   }
 
-  closeSaveModal() {
-    this.setState({showSaveModal: false});
+  closeTagsModal() {
+    this.setState({showTagsModal: false});
   }
 
   onEditorInput() {
@@ -319,12 +320,12 @@ class App extends Component {
     return (
       <div class="window">
         <Modal
-          id="saveModal"
+          id="tagsModal"
           maxWidth="600px"
-          show={this.state.showSaveModal}
-          closed={this.closeSaveModal}
+          show={this.state.showTagsModal}
+          onClose={this.closeTagsModal}
         >
-          <p>Is this working?</p>
+          <Tags />
         </Modal>
         <Toolbar
           openClicked={this.openClicked}
@@ -345,6 +346,7 @@ class App extends Component {
                 <ArticleMeta
                   articleMeta={this.state.articleMeta}
                   metaChanged={this.metaChanged}
+                  tagsClicked={() => this.setState({showTagsModal: true})}
                 />
               </Accordion>
               <Accordion label="Summary">
