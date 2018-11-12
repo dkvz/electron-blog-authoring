@@ -75,6 +75,18 @@ const MenuTemplate = (mainWindow) => {
       ]
     },
     {
+      label: 'Insert',
+      submenu: [
+        {
+          label: 'Insert paragraph',
+          accelerator: 'CmdOrCtrl+Enter',
+          click(e) {
+            mainWindow.webContents.send('insertElement', 'p');
+          }
+        }
+      ]
+    },
+    {
       role: 'window',
       submenu: [
         { role: 'minimize' }

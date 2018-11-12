@@ -286,6 +286,35 @@ class App extends Component {
     }
   }
 
+  insertElement(code) {
+    // I'm going to use setRangeText to insert stuff.
+    // It will replace what is currently selected, so I need
+    // to save the current selection for tag insertions.
+
+    // PROBLEM: If the accelerator actually does something to the
+    // editor, like Shift+Enter, it will clear the selection before
+    // this method is called. We need to prevent the default behavior 
+    // of shift + enter...
+    // Ctrl + enter works though. I'll keep it at that to avoid having
+    // to add more events to editors.
+    const selected = this.editors[this.focusedEditor].value.substring(
+      this.editors[this.focusedEditor].selectionStart,
+      this.editors[this.focusedEditor].selectionEnd
+    );
+    switch(code) {
+      case 'p':
+        // Let's add a paragraph.
+        this.editors[this.focusedEditor].setRangeText(
+          `<p>${selected}</p>`
+        );
+        // Now change the cursor position:
+        const cPos = this.editors[this.focusedEditor].selectionStart + 3;
+        this.editors[this.focusedEditor].selectionStart = cPos;
+        this.editors[this.focusedEditor].selectionEnd = cPos;
+        break; 
+    }
+  }
+
   render() {
     return (
       <div class="window">

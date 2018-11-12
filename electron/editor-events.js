@@ -135,12 +135,21 @@ const editorEvents = {
     });
   },
 
+  _registerInsertElement: function() {
+    ipcRenderer.on('insertElement', (sender, element) => {
+      // We need to use a switch() somewhere and have
+      // a list of allowed elements to insert.
+      this.articleEditor.insertElement(element);
+    });
+  },
+
   unregisterArticleEditor: function() {
     this.articleEditor = null;
     ipcRenderer.removeAllListeners('saveJSON');
     ipcRenderer.removeAllListeners('openJSON');
     ipcRenderer.removeAllListeners('newArticle');
     ipcRenderer.removeAllListeners('showSearchBox');
+    ipcRenderer.removeAllListeners('insertElement');
   },
 
   registerArticleEditor: function(articleEditor) {
@@ -149,6 +158,7 @@ const editorEvents = {
     this._registerOpenJSON();
     this._registerNewArticle();
     this._registerShowSearchBox();
+    this._registerInsertElement();
   }
 
 };
