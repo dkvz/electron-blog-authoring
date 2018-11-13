@@ -320,6 +320,7 @@ class App extends Component {
 
   tagsFetchError(err) {
     editorEvents.msgBox("Error when attempting to fetch the tags list.");
+    console.log(err);
   }
 
   tagsChanged(tags) {

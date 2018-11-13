@@ -18,9 +18,14 @@ class Tags extends Component {
     // the ones we have in props.tags.
     // allowedTags should then be added to
     // the state.
-    if (props.allowedTags && props.allowedTags.length > 0) 
-      this.generateAvailableTags(props.allowedTags);
-    else this.state.availableTags = [];
+    if (props.allowedTags && props.allowedTags.length > 0) {
+      this.originalAllowedTags = props.allowedTags;
+      this.generateAvailableTags(props.tags);
+    }
+    else {
+      this.state.availableTags = [];
+      this.originalAllowedTags = [];
+    }
   }
 
   // componentWillReceiveProps can also get
@@ -28,20 +33,20 @@ class Tags extends Component {
   componentWillReceiveProps(nextProps) {
     // If the tags prop changed we need to 
     // re-generate the list of available tags.
-    this.generateAvailableTags(nextProps.tags, this.state.availableTags);
+    this.generateAvailableTags(nextProps.tags);
   }
 
-  generateAvailableTags(newTags, currentAvailableTags) {
+  generateAvailableTags(newTags) {
     let availableTags;
     if (newTags && newTags.length > 0) {
-      availableTags = currentAvailableTags.filter(e => {
+      availableTags = this.originalAllowedTags.filter(e => {
         // I could use array.includes but I'm checking objects
         // here so I think I'm better off directly doing it
         // using a loop.
         return !newTags.some(t => t.id === e.id);
       });
     } else {
-      availableTags = currentAvailableTags;
+      availableTags = this.originalAllowedTags;
     }
     this.setState({availableTags});
   }
@@ -61,7 +66,8 @@ class Tags extends Component {
         if (d && d.length > 0) {
           d.forEach(t => t.id = parseInt(t.id));
         }
-        this.generateAvailableTags(this.props.tags, d);
+        this.originalAllowedTags = d;
+        this.generateAvailableTags(this.props.tags);
       })
       .catch(err => {
         this.props.onFetchError && this.props.onFetchError(err);
@@ -88,6 +94,12 @@ class Tags extends Component {
         newTags = this.props.tags.filter(tag => 
           !selectedIds.includes(tag.id)
         );
+        // We have to put the removed tags back into 
+        // availableTags.
+        // This component is CHAOS but it sort of ignores
+        // when we set new availableTags as props, see
+        // componentWillReceiveProps.
+        this.generateAvailableTags(newTags);
       }
       // Don't forget to fire the change event for
       // the actual tags list! If something was changed.
