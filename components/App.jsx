@@ -31,6 +31,8 @@ class App extends Component {
     this.onEditorInput = this.onEditorInput.bind(this);
     this.processSearch = this.processSearch.bind(this);
     this.showSearchBox = this.showSearchBox.bind(this);
+    this.tagsFetchError = this.tagsFetchError.bind(this);
+    this.tagsChanged = this.tagsChanged.bind(this);
     this.state = {
       statusText: "No database",
       showTagsModal: false,
@@ -316,16 +318,29 @@ class App extends Component {
     }
   }
 
+  tagsFetchError(err) {
+    editorEvents.msgBox("Error when attempting to fetch the tags list.");
+  }
+
+  tagsChanged(tags) {
+    this.setState({
+      articleMeta: Object.assign(this.state.articleMeta, {tags: tags})
+    });
+  }
+
   render() {
     return (
       <div class="window">
         <Modal
-          id="tagsModal"
           maxWidth="600px"
+          title="Article Tags"
           show={this.state.showTagsModal}
           onClose={this.closeTagsModal}
         >
-          <Tags />
+          <Tags tags={this.state.articleMeta.tags} 
+            onFetchError={this.tagsFetchError}
+            onTagsChange={this.tagsChanged}
+          />
         </Modal>
         <Toolbar
           openClicked={this.openClicked}

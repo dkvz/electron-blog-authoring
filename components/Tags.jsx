@@ -1,5 +1,10 @@
 const { h, Component } = require('preact');
 
+/**
+ * Events:
+ * - onFetchError
+ * - onTagsChange
+ */
 class Tags extends Component {
 
   constructor(props) {
@@ -13,7 +18,9 @@ class Tags extends Component {
     // the ones we have in props.tags.
     // allowedTags should then be added to
     // the state.
-    this.generateAvailableTags(props.allowedTags);
+    if (props.allowedTags && props.allowedTags.length > 0) 
+      this.generateAvailableTags(props.allowedTags);
+    else this.state.availableTags = [];
   }
 
   // componentWillReceiveProps can also get
@@ -21,20 +28,20 @@ class Tags extends Component {
   componentWillReceiveProps(nextProps) {
     // If the tags prop changed we need to 
     // re-generate the list of available tags.
-    this.generateAvailableTags(nextProps.tags);
+    this.generateAvailableTags(nextProps.tags, this.state.availableTags);
   }
 
-  generateAvailableTags(newTags) {
+  generateAvailableTags(newTags, currentAvailableTags) {
     let availableTags;
     if (newTags && newTags.length > 0) {
-      availableTags = newTags.filter(e => {
+      availableTags = currentAvailableTags.filter(e => {
         // I could use array.includes but I'm checking objects
         // here so I think I'm better off directly doing it
         // using a loop.
-        return !this.props.tags.some(t => t.id === e.id);
+        return !newTags.some(t => t.id === e.id);
       });
     } else {
-      availableTags = [];
+      availableTags = currentAvailableTags;
     }
     this.setState({availableTags});
   }
@@ -49,7 +56,12 @@ class Tags extends Component {
       .then(d => d.json())
       .then(d => {
         this.setState({loading: false});
-        this.generateAvailableTags(d);
+        // Make sure all the ids are of type Number or things
+        // won't go smoothly later on.
+        if (d && d.length > 0) {
+          d.forEach(t => t.id = parseInt(t.id));
+        }
+        this.generateAvailableTags(this.props.tags, d);
       })
       .catch(err => {
         this.props.onFetchError && this.props.onFetchError(err);
@@ -64,14 +76,14 @@ class Tags extends Component {
       // This is some kind of a nodeList, I don't think
       // selectedOptions has all the array prototype stuff.
       // We could use Array.from() on it though.
-      // TODO I'm not sure we need the parseInt here.
-      const selectedIds = parseInt(Array.from(source.selectedOptions).map(op => op.key));
+      const selectedIds = Array.from(source.selectedOptions)
+        .map(op => parseInt(op.value));
       let newTags;
       if (add) {
-        newTags = [...this.props.tags];
-        newTags.push(this.state.availableTags.filter(av => 
-          selectedIds.includes(av.id)        
-        ));
+        const toAdd = this.state.availableTags.filter(av => 
+          selectedIds.includes(av.id) 
+        );
+        newTags = [...this.props.tags, ...toAdd];
       } else {
         newTags = this.props.tags.filter(tag => 
           !selectedIds.includes(tag.id)
@@ -82,7 +94,6 @@ class Tags extends Component {
       this.props.onTagsChange && this.props.onTagsChange(newTags);
       // This should send back the current tags as props, and
       // cause a re-render of everything in consequence.
-
     }
   }
 
@@ -93,18 +104,18 @@ class Tags extends Component {
     return (
       <div className="Tags" style={{cursor: this.state.loading ? 'wait': 'auto'}}>
         <select multiple ref={(r) => this.availableSelect = r}>
-          {this.state.availableTags.map(t => <option key={t.id}>{t.name}</option>)}
+          {this.state.availableTags.map(t => <option value={t.id}>{t.name}</option>)}
         </select>
         <div class="Tags-buttons">
-          <button class="btn btn-default" onClick={this.fetchTags}>
+          <button class="btn btn-primary" onClick={this.fetchTags}>
             Get tags from web
           </button>
-          <button class="btn btn-large btn-default" 
+          <button class="btn btn-large btn-positive" 
             style={fatArrow}
             onClick={() => this.modifyLists(true)}>
             &rarr;
           </button>
-          <button class="btn btn-large btn-default" 
+          <button class="btn btn-large btn-negative" 
             style={fatArrow}
             onClick={() => this.modifyLists(false)}>
             &larr;
@@ -113,7 +124,7 @@ class Tags extends Component {
         <select multiple ref={(r) => this.currentSelect = r}>
           {
             this.props.tags && 
-            this.props.tags.map(t => <option key={t.id}>{t.name}</option>)
+            this.props.tags.map(t => <option value={t.id}>{t.name}</option>)
           }
         </select>
       </div>

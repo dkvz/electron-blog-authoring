@@ -3,10 +3,6 @@ const { h, Component } = require('preact');
 class Modal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: 'Modal title',
-      text: 'Dialog text'
-    };
   }
 
   // I'm using float in here for some reason.
@@ -22,7 +18,7 @@ class Modal extends Component {
               onClick={this.props.onClose}>
               &times;
             </span>
-            <h1 className="title">{this.state.title}</h1>
+            <h1 className="title">{this.props.title}</h1>
           </header>
           <div className="Modal-body">
             {this.props.children}
