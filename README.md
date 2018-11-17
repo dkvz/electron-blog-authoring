@@ -29,6 +29,7 @@ There are component-specific styles in base.css.
 * I think I need to register a hook in editor-events to check if the article was modified. Could be a boolean and the first on-change is triggering it. Now for the two Editor components I'll need something else (maybe register an event to on-input at first, then unregister it at first occurence).
 
 ## TODO
+- [ ] Très embêtant: quand on cherche dans un gros fichier, on dirait que la surbrillance de l'élément trouvé laisse le scroll où il était plutôt que de centrer la vue sur ce qui est trouvé.
 - [ ] Closing the search box should focus the active editor.
 - [ ] Change cursor for the editors, it shouldn't be the pointer.
 - [ ] We can't Ctrl + Z the insert paragraph thing. We should be able to. Maybe by sending an editor event?
