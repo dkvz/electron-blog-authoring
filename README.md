@@ -29,6 +29,8 @@ There are component-specific styles in base.css.
 * I think I need to register a hook in editor-events to check if the article was modified. Could be a boolean and the first on-change is triggering it. Now for the two Editor components I'll need something else (maybe register an event to on-input at first, then unregister it at first occurence).
 
 ## TODO
+- [ ] Closing the search box should focus the active editor.
+- [ ] Change cursor for the editors, it shouldn't be the pointer.
 - [ ] We can't Ctrl + Z the insert paragraph thing. We should be able to. Maybe by sending an editor event?
 - [ ] We should style disabled inputs, they appear the same right now.
 - [ ] I should change all my uses of the name elsewhere by a call to app.getName().
