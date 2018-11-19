@@ -151,7 +151,7 @@ class App extends Component {
     const artMeta = Object.assign({}, editorEvents.emptyArticle);
     artMeta.title = article.title;
     artMeta.thumbImage = article.thumbImage;
-    artMeta.articleUrl = article.articleUrl;
+    artMeta.articleUrl = article.articleUrl || article.articleURL;
     artMeta.short = article.short ? true : false;
     artMeta.published = article.published ? true : false;
     if (article.tags) artMeta.tags = article.tags;
