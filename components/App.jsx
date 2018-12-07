@@ -33,6 +33,7 @@ class App extends Component {
     this.showSearchBox = this.showSearchBox.bind(this);
     this.tagsFetchError = this.tagsFetchError.bind(this);
     this.tagsChanged = this.tagsChanged.bind(this);
+    this.closeSearchBox = this.closeSearchBox.bind(this);
     this.state = {
       statusText: "No database",
       showTagsModal: false,
@@ -329,6 +330,12 @@ class App extends Component {
     });
   }
 
+  closeSearchBox() {
+    this.setState({showSearchBox: false});
+    // Focus last focused editor:
+    this.editors[this.focusedEditor].focus();
+  }
+
   render() {
     return (
       <div class="window">
@@ -355,7 +362,7 @@ class App extends Component {
               <SearchBox show={this.state.showSearchBox} 
                 top={this.state.searchBoxTop} 
                 right={this.state.searchBoxRight} 
-                onClose={() => this.setState({showSearchBox: false})} 
+                onClose={this.closeSearchBox} 
                 onSearch={this.processSearch} 
               />
               <Accordion label="Article Meta" show="true">

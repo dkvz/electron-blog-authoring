@@ -31,7 +31,7 @@ There are component-specific styles in base.css.
 ## TODO
 - [ ] Quand on ouvre la fenêtre de recherche, qu'on trouve un élément, et qu'on fait Ctrl+S à ce moment-là, le focus se place sur la boîte de recherche. Ce qui n'est pas normal.
 - [ ] Très embêtant: quand on cherche dans un gros fichier, on dirait que la surbrillance de l'élément trouvé laisse le scroll où il était plutôt que de centrer la vue sur ce qui est trouvé.
-- [ ] Closing the search box should focus the active editor.
+- [x] Closing the search box should focus the active editor.
 - [ ] Change cursor for the editors, it shouldn't be the pointer.
 - [ ] We can't Ctrl + Z the insert paragraph thing. We should be able to. Maybe by sending an editor event?
 - [ ] We should style disabled inputs, they appear the same right now.
