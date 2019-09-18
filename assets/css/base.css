@@ -211,3 +211,7 @@ html, body {
 .Tags .Tags-buttons button {
   width: 100%;
 }
+
+textarea, input[type="text"] {
+  cursor: auto;
+}
