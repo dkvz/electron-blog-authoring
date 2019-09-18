@@ -108,7 +108,7 @@ const MenuTemplate = (mainWindow) => {
         },
         {
           label: 'Small image',
-          accelerator: 'CmdOrCtrl+Shift+i',
+          accelerator: 'CmdOrCtrl+Shift+m',
           click() {
             mainWindow.webContents.send('insertElement', 'img-sm');
           }

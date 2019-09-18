@@ -206,12 +206,20 @@ class App extends Component {
     // result. We should keep the open status of the accordion
     // somewhere.
     const rect = this.editors[this.focusedEditor].getBoundingClientRect();
-    console.log(rect.right);
     this.setState({
       showSearchBox: true,
       searchBoxRight: rect.left,
       searchBoxTop: rect.top
     });
+  }
+
+  /**
+   * Centers the scrollbars of textareas to where the cursor is
+   * for the currently active editor textarea.
+   */
+  _centerOnCursor() {
+    const evt = new KeyboardEvent('keypress', {keyCode: 65});
+    this.editors[this.focusedEditor].dispatchEvent(evt);
   }
 
   processSearch(e) {
@@ -236,10 +244,13 @@ class App extends Component {
         // Found something:
         currentEditor.focus();
         const relativePos = currentEditor.selectionEnd + pos;
+        currentEditor.selectionEnd = relativePos;
+
         currentEditor.setSelectionRange(
           relativePos, 
           relativePos + e.detail.query.length
         );
+        this._centerOnCursor();
       } else {
         // No matches.
         // I need a dialog to ask if we start from 0.
