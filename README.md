@@ -36,7 +36,6 @@ There are component-specific styles in base.css.
 - [ ] Vérifier quelle est la dernière version d'Electron, et s'ils travaillent toujours avec electron/main.js. On dirait qu'il est désormais déconseillé d'interargir avec Electron depuis les vues (voir console dans les dev tools).
 - [x] Closing the search box should focus the active editor.
 - [x] Change cursor for the editors, it shouldn't be the pointer.
-- [ ] We can't Ctrl + Z the insert paragraph thing. We should be able to. Maybe by sending an editor event?
 - [ ] We should style disabled inputs, they appear the same right now.
 - [ ] I should change all my uses of the name elsewhere by a call to app.getName().
 - [x] Pressing escape in the search box should call the onClose event to hide it.

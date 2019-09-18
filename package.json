@@ -17,6 +17,8 @@
     "babel-preset-preact": "^1.1.0",
     "electron": "^4.0.6",
     "electron-packager": "^12.1.0",
-    "preact": "^8.4.0"
+    "preact": "^8.4.0",
+    "lodash": ">=4.17.13",
+    "braces": ">=2.3.1"
   }
 }
