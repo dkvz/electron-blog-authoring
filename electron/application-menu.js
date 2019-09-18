@@ -78,10 +78,46 @@ const MenuTemplate = (mainWindow) => {
       label: 'Insert',
       submenu: [
         {
-          label: 'Insert paragraph',
+          label: 'Paragraph',
           accelerator: 'CmdOrCtrl+Enter',
-          click(e) {
+          // Note for later: click gets an event object as param.
+          click() {
             mainWindow.webContents.send('insertElement', 'p');
+          }
+        },
+        {
+          label: 'Link',
+          accelerator: 'CmdOrCtrl+Shift+a',
+          click() {
+            mainWindow.webContents.send('insertElement', 'a');
+          }
+        },
+        {
+          label: 'Local link',
+          accelerator: 'CmdOrCtrl+l',
+          click() {
+            mainWindow.webContents.send('insertElement', 'a-int');
+          }
+        },
+        {
+          label: 'Image',
+          accelerator: 'CmdOrCtrl+i',
+          click() {
+            mainWindow.webContents.send('insertElement', 'img');
+          }
+        },
+        {
+          label: 'Small image',
+          accelerator: 'CmdOrCtrl+Shift+i',
+          click() {
+            mainWindow.webContents.send('insertElement', 'img-sm');
+          }
+        },
+        {
+          label: 'Code',
+          accelerator: 'CmdOrCtrl+Shift+e',
+          click() {
+            mainWindow.webContents.send('insertElement', 'code');
           }
         }
       ]

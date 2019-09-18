@@ -87,7 +87,7 @@ class App extends Component {
     // Also the checked prop is not undefined for the
     // non checkbox inputs. We have to check a string.
     articleMeta[e.target.name] =
-      e.target.type.indexOf("checkbox") >= 0
+      e.target.type.indexOf('checkbox') >= 0
         ? e.target.checked
         : e.target.value;
     this.setState({ articleMeta: articleMeta, modified: true });
@@ -102,8 +102,8 @@ class App extends Component {
   getArticle() {
     return Object.assign(
       {
-        content: this.editors["content"].value,
-        summary: this.editors["summary"].value
+        content: this.editors['content'].value,
+        summary: this.editors['summary'].value
       },
       this.state.articleMeta
     );
@@ -119,7 +119,7 @@ class App extends Component {
     this.setState({
       articleMeta: Object.assign({}, editorEvents.emptyArticle),
       modified: false,
-      openedFilename: "",
+      openedFilename: '',
       onlineArticleId: -1
     });
     this.resetEditors();
@@ -128,7 +128,7 @@ class App extends Component {
   _confirmWipe() {
     if (this.state.modified) {
       // Ask for confirmation:
-      if (editorEvents.confirmDialog("Erase current data?") === 0) {
+      if (editorEvents.confirmDialog('Erase current data?') === 0) {
         return false;
       }
     }
@@ -136,7 +136,7 @@ class App extends Component {
   }
 
   openClicked() {
-    if (this._confirmWipe()) editorEvents.sendMessage("openJSON");
+    if (this._confirmWipe()) editorEvents.sendMessage('openJSON');
   }
 
   setModifiedAndFilename(modified, filename) {
@@ -167,21 +167,21 @@ class App extends Component {
       openedFilename: filename,
       onlineArticleId: onlineArticleId
     });
-    this.editors["summary"].value = article.summary;
-    this.editors["content"].value = article.content;
+    this.editors['summary'].value = article.summary;
+    this.editors['content'].value = article.content;
   }
 
   resetEditors() {
-    this.editors["summary"].value = "";
-    this.editors["content"].value = "";
+    this.editors['summary'].value = '';
+    this.editors['content'].value = '';
   }
 
   saveClicked() {
-    editorEvents.sendMessage("saveJSON");
+    editorEvents.sendMessage('saveJSON');
   }
 
   notImplemented() {
-    editorEvents.msgBox("Not implemented");
+    editorEvents.msgBox('Not implemented');
   }
 
   newClicked() {
@@ -312,11 +312,53 @@ class App extends Component {
           `<p>${selected}</p>`
         );
         // Now change the cursor position:
-        const cPos = this.editors[this.focusedEditor].selectionStart + 3;
-        this.editors[this.focusedEditor].selectionStart = cPos;
-        this.editors[this.focusedEditor].selectionEnd = cPos;
-        break; 
+        this._setRelativeEditorCaretPosition(3);
+        break;
+      case 'a':
+        this.editors[this.focusedEditor].setRangeText(
+          `<a href="/" target="_blank" rel="noopener noreferrer">${selected}</a>`
+        );
+        this._setRelativeEditorCaretPosition(10);
+        break;
+      case 'a-int':
+        // Internal link.
+        this.editors[this.focusedEditor].setRangeText(
+          `<a href="/">${selected}</a>`
+        );
+        this._setRelativeEditorCaretPosition(10);
+        break;
+      case 'img':
+        // Since we can't currently Ctrl+Z the insertions, we need
+        // to paste the selected variable after the img code just to
+        // be sure it's not lost inadvertently.
+        this.editors[this.focusedEditor].setRangeText(
+          `<div class="card-panel z-depth-3 article-image center-image" style="max-width: 1000px">\n` + 
+          `<a href="/wp-content/stuff/" target="_blank"><img src="" alt="" class="responsive-img"></a>\n` + 
+          `<div class="image-legend"></div>\n` + 
+          `</div>\n${selected}`
+        );
+        this._setRelativeEditorCaretPosition(79);
+        break;
+      case 'img-sm':
+        this.editors[this.focusedEditor].setRangeText(
+          `<p><img src="/stuff/" alt="" class="responsive-img center-image"></p>` +
+          `${selected}\n`
+        );
+        this._setRelativeEditorCaretPosition(20);
+        break;
+      case 'code':
+        this.editors[this.focusedEditor].setRangeText(
+          `<pre class="screen">${selected}</pre>`
+        );
+        this._setRelativeEditorCaretPosition(20 + selected.length);
+        break;
     }
+  }
+
+  _setRelativeEditorCaretPosition(pos) {
+    const cPos = this.editors[this.focusedEditor].selectionStart + pos;
+    this.editors[this.focusedEditor].selectionStart = cPos;
+    this.editors[this.focusedEditor].selectionEnd = cPos;
   }
 
   tagsFetchError(err) {
