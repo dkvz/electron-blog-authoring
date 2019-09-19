@@ -272,11 +272,16 @@ class App extends Component {
           match = regExec();
         } while (match);
         // We should have the latest match inside of pos.
+        // Now there is a specific sequence of things to set
+        // to ensure the cursor actually moves to that position
+        // inside the textarea.
+        currentEditor.selectionStart = pos;
+        currentEditor.selectionEnd = pos;
+        currentEditor.focus();
         currentEditor.setSelectionRange(
           pos,
           pos + len
         );
-        currentEditor.focus();
       } else {
         // Nothing found, ask if user wants to search from the end.
         if (editorEvents.confirmDialog(

@@ -54,9 +54,10 @@ Backwards has to have a similar sequence of operations as well.
 ## TODO
 - [ ] L'insertion d'image devrait montrer une boite de dialogue pour toutes les options - Ce qui pourrait être modulaire pour d'autres bidules d'insertion.
 - [ ] Quand on ouvre la fenêtre de recherche, qu'on trouve un élément, et qu'on fait Ctrl+S à ce moment-là, le focus se place sur la boîte de recherche. Ce qui n'est pas normal.
-- [ ] Très embêtant: quand on cherche dans un gros fichier, on dirait que la surbrillance de l'élément trouvé laisse le scroll où il était plutôt que de centrer la vue sur ce qui est trouvé.
+- [x] Très embêtant: quand on cherche dans un gros fichier, on dirait que la surbrillance de l'élément trouvé laisse le scroll où il était plutôt que de centrer la vue sur ce qui est trouvé.
 - [ ] Faire en sorte que Ctrl+Z fonctionne quand on utilise les éléments du menu "Insert". Si j'ajoute une fonction de search/replace ça, Ctrl+Z risque de ne pas fonctionner non plus.
 - [ ] Vérifier quelle est la dernière version d'Electron, et s'ils travaillent toujours avec electron/main.js. On dirait qu'il est désormais déconseillé d'interargir avec Electron depuis les vues (voir console dans les dev tools).
+- [ ] Add .env so that we can use npm start on both Unix-based and Windows platforms and get rid of the "start-win" script.
 - [x] Closing the search box should focus the active editor.
 - [x] Change cursor for the editors, it shouldn't be the pointer.
 - [ ] We should style disabled inputs, they appear the same right now.
