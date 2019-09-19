@@ -28,6 +28,29 @@ There are component-specific styles in base.css.
 * Buttons in the toolbar can receive the "active" classe.
 * I think I need to register a hook in editor-events to check if the article was modified. Could be a boolean and the first on-change is triggering it. Now for the two Editor components I'll need something else (maybe register an event to on-input at first, then unregister it at first occurence).
 
+## Issues
+
+### Searching and cursor position
+It looks like the cursor positioning works fine when you close the search box. So the search box is doing something that prevents the editor to scroll.
+
+-> The problem seems to just be related to when focus() is called, it has to be called **after** setting the cursor position.
+
+We need to set selectionStart and End to the **same** value first, then set the selection. I don't know why that is but that exact sequence of events has to happen. Using of setInterval is not needed.
+
+For instance, this code works for the forward lookup:
+```js
+const relativePos = currentEditor.selectionEnd + pos;
+currentEditor.selectionStart = relativePos;
+currentEditor.selectionEnd = relativePos;
+currentEditor.focus();
+currentEditor.setSelectionRange(
+  relativePos, 
+  relativePos + e.detail.query.length
+);
+```
+
+Backwards has to have a similar sequence of operations as well.
+
 ## TODO
 - [ ] L'insertion d'image devrait montrer une boite de dialogue pour toutes les options - Ce qui pourrait être modulaire pour d'autres bidules d'insertion.
 - [ ] Quand on ouvre la fenêtre de recherche, qu'on trouve un élément, et qu'on fait Ctrl+S à ce moment-là, le focus se place sur la boîte de recherche. Ce qui n'est pas normal.

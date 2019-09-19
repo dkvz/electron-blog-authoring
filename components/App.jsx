@@ -206,20 +206,12 @@ class App extends Component {
     // result. We should keep the open status of the accordion
     // somewhere.
     const rect = this.editors[this.focusedEditor].getBoundingClientRect();
+    console.log(rect.right);
     this.setState({
       showSearchBox: true,
       searchBoxRight: rect.left,
       searchBoxTop: rect.top
     });
-  }
-
-  /**
-   * Centers the scrollbars of textareas to where the cursor is
-   * for the currently active editor textarea.
-   */
-  _centerOnCursor() {
-    const evt = new KeyboardEvent('keypress', {keyCode: 65});
-    this.editors[this.focusedEditor].dispatchEvent(evt);
   }
 
   processSearch(e) {
@@ -242,15 +234,14 @@ class App extends Component {
       ).search(reg);
       if (pos >= 0) {
         // Found something:
-        currentEditor.focus();
         const relativePos = currentEditor.selectionEnd + pos;
+        currentEditor.selectionStart = relativePos;
         currentEditor.selectionEnd = relativePos;
-
+        currentEditor.focus();
         currentEditor.setSelectionRange(
           relativePos, 
           relativePos + e.detail.query.length
         );
-        this._centerOnCursor();
       } else {
         // No matches.
         // I need a dialog to ask if we start from 0.
@@ -281,11 +272,11 @@ class App extends Component {
           match = regExec();
         } while (match);
         // We should have the latest match inside of pos.
-        currentEditor.focus();
         currentEditor.setSelectionRange(
           pos,
           pos + len
         );
+        currentEditor.focus();
       } else {
         // Nothing found, ask if user wants to search from the end.
         if (editorEvents.confirmDialog(
