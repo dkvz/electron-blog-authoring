@@ -359,6 +359,24 @@ class App extends Component {
         );
         this._setRelativeEditorCaretPosition(20 + selected.length);
         break;
+      case 'i':
+        this.editors[this.focusedEditor].setRangeText(
+          `<i>${selected}</i>`
+        );
+        this._setRelativeEditorCaretPosition(3);
+        break;
+      case 'b':
+        this.editors[this.focusedEditor].setRangeText(
+          `<b>${selected}</b>`
+        );
+        this._setRelativeEditorCaretPosition(3);
+        break;
+      case 'strike':
+        this.editors[this.focusedEditor].setRangeText(
+          `<strike>${selected}</strike>`
+        );
+        this._setRelativeEditorCaretPosition(8);
+        break;
     }
   }
 

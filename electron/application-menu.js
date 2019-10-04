@@ -119,6 +119,27 @@ const MenuTemplate = (mainWindow) => {
           click() {
             mainWindow.webContents.send('insertElement', 'code');
           }
+        },
+        {
+          label: 'Italic text',
+          accelerator: 'CmdOrCtrl+i',
+          click() {
+            mainWindow.webContents.send('insertElement', 'i');
+          }
+        },
+        {
+          label: 'Bold text',
+          accelerator: 'CmdOrCtrl+b',
+          click() {
+            mainWindow.webContents.send('insertElement', 'b');
+          }
+        },
+        {
+          label: 'Strike through text',
+          accelerator: 'CmdOrCtrl+t',
+          click() {
+            mainWindow.webContents.send('insertElement', 'strike');
+          }
         }
       ]
     },
