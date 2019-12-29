@@ -52,6 +52,7 @@ currentEditor.setSelectionRange(
 Backwards has to have a similar sequence of operations as well.
 
 ## TODO
+- [ ] Ajouter un moyen d'ouvrir rapidement le dernier fichier qui était ouvert.
 - [ ] L'insertion d'image devrait montrer une boite de dialogue pour toutes les options - Ce qui pourrait être modulaire pour d'autres bidules d'insertion.
 - [ ] Quand on ouvre la fenêtre de recherche, qu'on trouve un élément, et qu'on fait Ctrl+S à ce moment-là, le focus se place sur la boîte de recherche. Ce qui n'est pas normal.
 - [x] Très embêtant: quand on cherche dans un gros fichier, on dirait que la surbrillance de l'élément trouvé laisse le scroll où il était plutôt que de centrer la vue sur ce qui est trouvé.
