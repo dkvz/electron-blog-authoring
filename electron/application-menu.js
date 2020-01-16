@@ -114,6 +114,13 @@ const MenuTemplate = (mainWindow) => {
           }
         },
         {
+          label: 'Video',
+          accelerator: 'CmdOrCtrl+Shift+i',
+          click() {
+            mainWindow.webContents.send('insertElement', 'video');
+          }
+        },
+        {
           label: 'Code',
           accelerator: 'CmdOrCtrl+Shift+e',
           click() {

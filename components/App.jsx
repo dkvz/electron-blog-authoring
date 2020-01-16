@@ -377,6 +377,15 @@ class App extends Component {
         );
         this._setRelativeEditorCaretPosition(8);
         break;
+      case 'video':
+        this.editors[this.focusedEditor].setRangeText(
+          `<video class="responsive-video" preload="none" controls="" poster="/wp-content/stuff/1080p_shrimp_pholder.jpg">\n` +  
+          `<source src="" type="video/mp4">\n` +  
+          `<p>Votre navigateur n'a pas la capacité de lire les vidéos HTML5.</p>\n` +  
+          `</video>\n${selected}`
+        );
+        this._setRelativeEditorCaretPosition(125);
+        break;
     }
   }
 
