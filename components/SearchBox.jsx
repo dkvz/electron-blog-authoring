@@ -6,18 +6,30 @@ class SearchBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      caseSensitive: props.caseSensitive || false
+      caseSensitive: props.caseSensitive || false,
+      inputHasBlurred: false
     };
     this.search = this.search.bind(this);
     this.textFieldKeyUp = this.textFieldKeyUp.bind(this);
+    this.textFieldBlur = this.textFieldBlur.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // We don't need to do anything if the state changed.
-    if (shallowEqual(this.state, prevState)) {
+    // Set the focus if "show" changed:
+    /*if (shallowEqual(this.state, prevState)) {
       this.textField.focus();
       this.textField.select();
+    }*/
+    if (this.state.inputHasBlurred || 
+      this.props.show === true && prevProps.show === false) {
+      this._focusAndSelect();
     }
+  }
+
+  _focusAndSelect() {
+    this.textField.focus();
+    this.textField.select();
+    this.setState({ inputHasBlurred: false }); 
   }
 
   search(forward) {
@@ -32,6 +44,7 @@ class SearchBox extends Component {
           }
         }
       );
+      this.setState({ inputHasBlurred: true });
     }
   }
 
@@ -55,7 +68,7 @@ class SearchBox extends Component {
           }}>
         <input type="text" 
           ref={(ref) => {this.textField = ref}} 
-          onKeyUp={this.textFieldKeyUp}
+          onKeyUp={this.textFieldKeyUp} 
           />
         <span className="chkbox-wrapper">
           <label title="Enable/disable case sensitive search"
