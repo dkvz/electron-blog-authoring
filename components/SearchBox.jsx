@@ -11,7 +11,6 @@ class SearchBox extends Component {
     };
     this.search = this.search.bind(this);
     this.textFieldKeyUp = this.textFieldKeyUp.bind(this);
-    this.textFieldBlur = this.textFieldBlur.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -20,8 +19,10 @@ class SearchBox extends Component {
       this.textField.focus();
       this.textField.select();
     }*/
-    if (this.state.inputHasBlurred || 
-      this.props.show === true && prevProps.show === false) {
+    // If already shown, we don't need to refocus unless
+    if (this.props.show === true && prevProps.show === false || (
+      this.props.show === true && prevProps.show === true && this.inputHasBlurred
+    )) {
       this._focusAndSelect();
     }
   }
