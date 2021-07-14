@@ -87,14 +87,14 @@ const MenuTemplate = (mainWindow) => {
         },
         {
           label: 'Link',
-          accelerator: 'CmdOrCtrl+Shift+a',
+          accelerator: 'CmdOrCtrl+Shift+l',
           click() {
             mainWindow.webContents.send('insertElement', 'a');
           }
         },
         {
           label: 'Local link',
-          accelerator: 'CmdOrCtrl+l',
+          accelerator: 'CmdOrCtrl+h',
           click() {
             mainWindow.webContents.send('insertElement', 'a-int');
           }
@@ -111,6 +111,13 @@ const MenuTemplate = (mainWindow) => {
           accelerator: 'CmdOrCtrl+Shift+m',
           click() {
             mainWindow.webContents.send('insertElement', 'img-sm');
+          }
+        },
+        {
+          label: 'Image gallery',
+          accelerator: 'CmdOrCtrl+Shift+g',
+          click() {
+            mainWindow.webContents.send('insertElement', 'img-gal');
           }
         },
         {

@@ -353,6 +353,14 @@ class App extends Component {
         );
         this._setRelativeEditorCaretPosition(20);
         break;
+      case 'img-gal':
+        this.editors[this.focusedEditor].setRangeText(
+          `<p class="image-row">\n` +
+          `<a href="/" target="_blank" rel="noopener"><img src="/" alt=""></a>\n`.repeat(2) +
+          `</p class="image-row">\n${selected}\n`
+        );
+        this._setRelativeEditorCaretPosition(32);
+        break;
       case 'code':
         this.editors[this.focusedEditor].setRangeText(
           `<pre class="screen">${selected}</pre>`
