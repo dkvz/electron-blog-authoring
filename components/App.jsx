@@ -142,7 +142,7 @@ class App extends Component {
   setModifiedAndFilename(modified, filename) {
     if (this.state.modified !== modified || this.state.filename !== filename)
       this.setState({
-        modified: modified, 
+        modified: modified,
         openedFilename: filename,
         onlineArticleId: -1
       });
@@ -189,12 +189,12 @@ class App extends Component {
   }
 
   closeTagsModal() {
-    this.setState({showTagsModal: false});
+    this.setState({ showTagsModal: false });
   }
 
   onEditorInput() {
     if (this.state.modified === false) {
-      this.setState({modified: true});
+      this.setState({ modified: true });
     }
   }
 
@@ -218,8 +218,8 @@ class App extends Component {
     const currentEditor = this.editors[this.focusedEditor];
     let reg;
     try {
-      reg = new RegExp(e.detail.query, e.detail.caseSensitive ? 'g': 'ig');
-    } catch(err) {
+      reg = new RegExp(e.detail.query, e.detail.caseSensitive ? 'g' : 'ig');
+    } catch (err) {
       // Regex is invalid.
       editorEvents.msgBox('Search regex is invalid.');
       return;
@@ -229,7 +229,7 @@ class App extends Component {
       // If nothing is found and selectionStart was not 0, 
       // we should ask if the user wants to search from the start.
       const pos = currentEditor.value.substring(
-        currentEditor.selectionEnd, 
+        currentEditor.selectionEnd,
         currentEditor.value.length
       ).search(reg);
       if (pos >= 0) {
@@ -239,7 +239,7 @@ class App extends Component {
         currentEditor.selectionEnd = relativePos;
         currentEditor.focus();
         currentEditor.setSelectionRange(
-          relativePos, 
+          relativePos,
           relativePos + e.detail.query.length
         );
       } else {
@@ -247,9 +247,9 @@ class App extends Component {
         // I need a dialog to ask if we start from 0.
         if (editorEvents.confirmDialog(
           'No matches found after current position. Start from 0?'
-          ) !== 0) {
-            currentEditor.setSelectionRange(0, 0);
-            this.processSearch(e);
+        ) !== 0) {
+          currentEditor.setSelectionRange(0, 0);
+          this.processSearch(e);
         }
       }
     } else {
@@ -286,12 +286,12 @@ class App extends Component {
         // Nothing found, ask if user wants to search from the end.
         if (editorEvents.confirmDialog(
           'No matches found before current position. Search from the end?'
-          ) !== 0) {
-            currentEditor.setSelectionRange(
-              currentEditor.value.length,
-              currentEditor.value.length
-            );
-            this.processSearch(e);
+        ) !== 0) {
+          currentEditor.setSelectionRange(
+            currentEditor.value.length,
+            currentEditor.value.length
+          );
+          this.processSearch(e);
         }
       }
     }
@@ -312,7 +312,7 @@ class App extends Component {
       this.editors[this.focusedEditor].selectionStart,
       this.editors[this.focusedEditor].selectionEnd
     );
-    switch(code) {
+    switch (code) {
       case 'p':
         // Let's add a paragraph.
         this.editors[this.focusedEditor].setRangeText(
@@ -339,9 +339,9 @@ class App extends Component {
         // to paste the selected variable after the img code just to
         // be sure it's not lost inadvertently.
         this.editors[this.focusedEditor].setRangeText(
-          `<div class="card-panel z-depth-3 article-image center-image" style="max-width: 1000px">\n` + 
-          `<a href="/wp-content/stuff/" target="_blank"><img src="" alt="" class="responsive-img"></a>\n` + 
-          `<div class="image-legend"></div>\n` + 
+          `<div class="card-panel z-depth-3 article-image center-image" style="max-width: 1000px">\n` +
+          `<a href="/wp-content/stuff/" target="_blank"><img src="" alt="" class="responsive-img"></a>\n` +
+          `<div class="image-legend"></div>\n` +
           `</div>\n${selected}`
         );
         this._setRelativeEditorCaretPosition(79);
@@ -357,7 +357,7 @@ class App extends Component {
         this.editors[this.focusedEditor].setRangeText(
           `<p class="image-row">\n` +
           `<a href="/" target="_blank" rel="noopener"><img src="/" alt=""></a>\n`.repeat(2) +
-          `</p class="image-row">\n${selected}\n`
+          `</p>\n${selected}\n`
         );
         this._setRelativeEditorCaretPosition(32);
         break;
@@ -387,9 +387,9 @@ class App extends Component {
         break;
       case 'video':
         this.editors[this.focusedEditor].setRangeText(
-          `<video class="responsive-video" preload="none" controls="" poster="/wp-content/stuff/1080p_shrimp_pholder.jpg">\n` +  
-          `<source src="" type="video/mp4">\n` +  
-          `<p>Votre navigateur n'a pas la capacité de lire les vidéos HTML5.</p>\n` +  
+          `<video class="responsive-video" preload="none" controls="" poster="/wp-content/stuff/1080p_shrimp_pholder.jpg">\n` +
+          `<source src="" type="video/mp4">\n` +
+          `<p>Votre navigateur n'a pas la capacité de lire les vidéos HTML5.</p>\n` +
           `</video>\n${selected}`
         );
         this._setRelativeEditorCaretPosition(125);
@@ -410,12 +410,12 @@ class App extends Component {
 
   tagsChanged(tags) {
     this.setState({
-      articleMeta: Object.assign(this.state.articleMeta, {tags: tags})
+      articleMeta: Object.assign(this.state.articleMeta, { tags: tags })
     });
   }
 
   closeSearchBox() {
-    this.setState({showSearchBox: false});
+    this.setState({ showSearchBox: false });
     // Focus last focused editor:
     this.editors[this.focusedEditor].focus();
   }
@@ -429,7 +429,7 @@ class App extends Component {
           show={this.state.showTagsModal}
           onClose={this.closeTagsModal}
         >
-          <Tags tags={this.state.articleMeta.tags} 
+          <Tags tags={this.state.articleMeta.tags}
             onFetchError={this.tagsFetchError}
             onTagsChange={this.tagsChanged}
           />
@@ -443,17 +443,17 @@ class App extends Component {
         <div class="window-content">
           <div class="pane-group">
             <div class="pane app-layout">
-              <SearchBox show={this.state.showSearchBox} 
-                top={this.state.searchBoxTop} 
-                right={this.state.searchBoxRight} 
-                onClose={this.closeSearchBox} 
-                onSearch={this.processSearch} 
+              <SearchBox show={this.state.showSearchBox}
+                top={this.state.searchBoxTop}
+                right={this.state.searchBoxRight}
+                onClose={this.closeSearchBox}
+                onSearch={this.processSearch}
               />
               <Accordion label="Article Meta" show="true">
                 <ArticleMeta
                   articleMeta={this.state.articleMeta}
                   metaChanged={this.metaChanged}
-                  tagsClicked={() => this.setState({showTagsModal: true})}
+                  tagsClicked={() => this.setState({ showTagsModal: true })}
                 />
               </Accordion>
               <Accordion label="Summary">
@@ -463,7 +463,7 @@ class App extends Component {
                   height="230px"
                   setEditorRef={this.setEditorRefSummary}
                   onInput={this.onEditorInput}
-                  onFocus={() => {this.focusedEditor = 'summary';}}
+                  onFocus={() => { this.focusedEditor = 'summary'; }}
                 />
               </Accordion>
               <div class="form-group full-section">
@@ -474,14 +474,14 @@ class App extends Component {
                   fontSize={this.state.editorFontSize}
                   setEditorRef={this.setEditorRefContent}
                   onInput={this.onEditorInput}
-                  onFocus={() => {this.focusedEditor = 'content';}}
+                  onFocus={() => { this.focusedEditor = 'content'; }}
                 />
               </div>
             </div>
           </div>
         </div>
-        <Footer statusText={this.state.statusText} 
-          modified={this.state.modified} 
+        <Footer statusText={this.state.statusText}
+          modified={this.state.modified}
           openedFilename={this.state.openedFilename}
           onlineArticleId={this.state.onlineArticleId}
         />
