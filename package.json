@@ -17,7 +17,7 @@
     "babel-preset-preact": "^1.1.0",
     "braces": ">=2.3.1",
     "cross-env": "^7.0.3",
-    "electron": "^4.0.6",
+    "electron": "^9.4.0",
     "electron-packager": "^12.1.0",
     "lodash": ">=4.17.19",
     "preact": "^8.4.0"
