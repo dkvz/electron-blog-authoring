@@ -7,8 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "babel -d lib/ components/",
-    "start": "npm run compile && NODE_ENV=dev electron .",
-    "start-win": "npm run compile&&set NODE_ENV=dev&&electron ."
+    "start": "npm run compile&&cross-env NODE_ENV=dev electron .",
+    "//": "start-win: npm run compile&&set NODE_ENV=dev&&electron ."
   },
   "author": "dkvz@dkvz.eu",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-preact": "^1.1.0",
     "braces": ">=2.3.1",
+    "cross-env": "^7.0.3",
     "electron": "^4.0.6",
     "electron-packager": "^12.1.0",
     "lodash": ">=4.17.19",
