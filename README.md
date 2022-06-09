@@ -52,6 +52,8 @@ currentEditor.setSelectionRange(
 Backwards has to have a similar sequence of operations as well.
 
 ## TODO
+- [ ] Le raccourci pour ajouter une image standard est le même que texte en italique.
+- [ ] Pourquoi y a des TODO en français et en anglais, il s'est passé quoi ici?
 - [ ] Pourrait être pas mal d'utiliser un éditeur riche qui existe déjà comme Monaco ou un plus léger, voire même avoir l'option pour changer de natif à "enhanced".
 - [ ] Ajouter un moyen d'ouvrir rapidement le dernier fichier qui était ouvert.
 - [ ] L'insertion d'image devrait montrer une boite de dialogue pour toutes les options - Ce qui pourrait être modulaire pour d'autres bidules d'insertion.
