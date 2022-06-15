@@ -52,6 +52,7 @@ currentEditor.setSelectionRange(
 Backwards has to have a similar sequence of operations as well.
 
 ## TODO
+- [ ] Add a shortcut to go to bottom of article (and another one for top).
 - [ ] Le raccourci pour ajouter une image standard est le même que texte en italique.
 - [ ] Pourquoi y a des TODO en français et en anglais, il s'est passé quoi ici?
 - [ ] Pourrait être pas mal d'utiliser un éditeur riche qui existe déjà comme Monaco ou un plus léger, voire même avoir l'option pour changer de natif à "enhanced".
