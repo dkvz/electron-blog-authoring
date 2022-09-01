@@ -53,6 +53,7 @@ Backwards has to have a similar sequence of operations as well.
 
 ## TODO
 - [ ] Add a shortcut to go to bottom of article (and another one for top).
+- [ ] Add a way to set the article ID and a clear mention of its presence or absence.
 - [ ] Le raccourci pour ajouter une image standard est le même que texte en italique.
 - [ ] Pourquoi y a des TODO en français et en anglais, il s'est passé quoi ici?
 - [ ] Pourrait être pas mal d'utiliser un éditeur riche qui existe déjà comme Monaco ou un plus léger, voire même avoir l'option pour changer de natif à "enhanced".
