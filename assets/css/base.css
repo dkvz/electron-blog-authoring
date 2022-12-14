@@ -1,19 +1,23 @@
 /*
 * General styles:
 */
-html, body {
+html,
+body {
   box-sizing: border-box;
 }
+
 .app-layout {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
+
 .full-section {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
+
 /*
 * End General styles
 */
@@ -21,7 +25,8 @@ html, body {
 /*
 * Accordion component (+ form-headline):
 */
-.Accordion, .form-headline {
+.Accordion,
+.form-headline {
   background-color: #eee;
   color: #444;
   cursor: pointer;
@@ -34,7 +39,8 @@ html, body {
   transition: 0.4s;
 }
 
-.Accordion-active, .Accordion:hover {
+.Accordion-active,
+.Accordion:hover {
   background-color: #ccc;
 }
 
@@ -56,6 +62,7 @@ html, body {
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 }
+
 /*
 * End Accordion
 */
@@ -64,17 +71,26 @@ html, body {
 * Modal component styles:
 */
 .Modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 50px; /* Location of the box */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 50px;
+  /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 .Modal-content {
@@ -84,14 +100,21 @@ html, body {
   padding: 0;
   border: 1px solid #888;
   width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
   animation-duration: 0.4s
 }
 
 @keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
 }
 
 .Modal-close {
@@ -116,6 +139,7 @@ html, body {
 .Modal-footer {
   padding: 4px 4px;
 }
+
 /*
 * End Modal component styles
 */
@@ -212,6 +236,8 @@ html, body {
   width: 100%;
 }
 
-textarea, input[type="text"] {
+textarea,
+input[type="text"] {
   cursor: auto;
+  font-family: 'Noto Sans Mono', 'Cascadia Code', 'Fira Code', sans-serif;
 }
