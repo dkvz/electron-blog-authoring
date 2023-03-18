@@ -52,6 +52,7 @@ currentEditor.setSelectionRange(
 Backwards has to have a similar sequence of operations as well.
 
 ## TODO
+- [ ] There's no warning at all (at least on Linux) when closing the app when modifications have been done.
 - [ ] Add a shortcut to go to bottom of article (and another one for top).
 - [ ] Add a way to set the article ID and a clear mention of its presence or absence.
 - [ ] Le raccourci pour ajouter une image standard est le même que texte en italique.
