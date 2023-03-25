@@ -86,6 +86,14 @@ const MenuTemplate = (mainWindow) => {
           }
         },
         {
+          label: 'Non-breaking space',
+          accelerator: 'CmdOrCtrl+Space',
+          // Note for later: click gets an event object as param.
+          click() {
+            mainWindow.webContents.send('insertElement', 'nbsp');
+          }
+        },
+        {
           label: 'Link',
           accelerator: 'CmdOrCtrl+Shift+l',
           click() {

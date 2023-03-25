@@ -394,6 +394,10 @@ class App extends Component {
         );
         this._setRelativeEditorCaretPosition(125);
         break;
+      case 'nbsp':
+        this.editors[this.focusedEditor].setRangeText('&nbsp;');
+        this._setRelativeEditorCaretPosition(6);
+        break;
     }
   }
 
