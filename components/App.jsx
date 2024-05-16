@@ -363,9 +363,9 @@ class App extends Component {
         break;
       case 'code':
         this.editors[this.focusedEditor].setRangeText(
-          `<pre class="screen">${selected}</pre>`
+          `<pre class="screen"><code class="language-">${selected}</code></pre>`
         );
-        this._setRelativeEditorCaretPosition(20 + selected.length);
+        this._setRelativeEditorCaretPosition(42);
         break;
       case 'i':
         this.editors[this.focusedEditor].setRangeText(
