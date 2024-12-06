@@ -240,4 +240,6 @@ textarea,
 input[type="text"] {
   cursor: auto;
   font-family: 'Noto Sans Mono', 'Cascadia Code', 'Fira Code', sans-serif;
+  background-color: #222 !important;
+  color: #ededed;
 }
